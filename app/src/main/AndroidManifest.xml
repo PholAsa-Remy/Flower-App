@@ -16,6 +16,12 @@
             android:name=".AddActivity"
             android:exported="true" />
         <activity
+            android:name=".ModifyActivity"
+            android:exported="true" />
+        <activity
+            android:name=".RechercheActivity"
+            android:exported="true" />
+        <activity
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
