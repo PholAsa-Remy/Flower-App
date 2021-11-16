@@ -4,7 +4,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 
 //TODO : Remplacer list avec autre chose
@@ -13,7 +12,7 @@ class RecallRecycledAdapter (var list : List<String>) : RecyclerView.Adapter<Rec
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         // Create a new view, which defines the UI of the list item
         val view = LayoutInflater.from(parent.context)
-            .inflate(R.layout.item_layout, parent, false)
+            .inflate(R.layout.item_recall_layout, parent, false)
 
         val holder = VH(view)
 
