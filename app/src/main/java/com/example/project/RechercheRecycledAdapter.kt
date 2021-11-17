@@ -1,46 +1,30 @@
 package com.example.project
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.example.project.databinding.ItemRechercheLayoutBinding
 
 //TODO : Remplacer list avec autre chose
-class RechercheRecycledAdapter (var list : List<String>) : RecyclerView.Adapter<RecyclerView.ViewHolder>(){
+class RechercheRecycledAdapter () : RecyclerView.Adapter<RechercheRecycledAdapter.VH>(){
+    var list : List<Flower> = mutableListOf()
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        // Create a new view, which defines the UI of the list item
-        val view = LayoutInflater.from(parent.context)
-            .inflate(R.layout.item_recherche_layout, parent, false)
-        //TODO : remplacer item recall layout
-
-        val holder = VH(view)
-
-        /* TODO : Changer ici pour selectionner ce qu'on clique et ajouter un bouton arroser
-        var listener = View.OnClickListener { view ->
-            val etu : Etudiant = sortedList.get(holder.absoluteAdapterPosition)
-            etu.checked = !etu.checked
-            if (etu.checked){
-                holder.itemView.findViewById<CardView>(R.id.cardView).setCardBackgroundColor(colorChecked)
-            }else{
-                setpaircolor (holder, holder.absoluteAdapterPosition)
-            }
-            if (sortColumn.equals("checked")){
-                sortedList.updateItemAt( holder.absoluteAdapterPosition, etu)
-            }
-        }
-        view.setOnClickListener(listener)*/
-
-        return holder
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RechercheRecycledAdapter.VH {
+        val binding = ItemRechercheLayoutBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false)
+        return RechercheRecycledAdapter.VH(binding)
     }
 
-    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        holder.itemView.findViewById<TextView>(R.id.name).setText(list.get(position))
+    override fun onBindViewHolder(holder: RechercheRecycledAdapter.VH, position: Int) {
+        holder.binding.name.setText(list.get(position).name)
     }
 
     override fun getItemCount(): Int = list.size
 
-    class VH(view: View) : RecyclerView.ViewHolder(view)
+    fun maj_flower (flower : List<Flower>){
+        list = flower
+        this.notifyDataSetChanged()
+    }
+
+    class VH(val binding: ItemRechercheLayoutBinding) : RecyclerView.ViewHolder( binding.root )
 
 }
