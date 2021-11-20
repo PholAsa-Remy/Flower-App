@@ -3,6 +3,7 @@ package com.example.project
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
+import androidx.lifecycle.ViewModelProvider
 import com.example.project.databinding.ActivityAddBinding
 import com.example.project.databinding.ActivityMainBinding
 
@@ -17,8 +18,8 @@ class AddActivity : AppCompatActivity() {
         binding = ActivityAddBinding.inflate( layoutInflater )
         setContentView( binding.root)
 
-
-        model.insertInfo.observe(this){
+        model = ViewModelProvider(this).get(FlowerViewModel::class.java)
+        model.flowers.observe(this){
             Toast.makeText(this, "Add new flower", Toast.LENGTH_SHORT).show()
         }
 
@@ -30,11 +31,11 @@ class AddActivity : AppCompatActivity() {
             val nextWatering = binding.edNextWatering.text.toString()
             val frequency = binding.edFrequency.text.toString().toInt()
 
-            if (name == "" || picture == "" || period == "" || nextWatering == "" || frequency > 0){
+            if (name == "" || picture == "" || period == "" || nextWatering == "" || frequency <= 0){
                 Toast.makeText(this, "lack of informations", Toast.LENGTH_SHORT).show()
             }else{
                 flower = Flower(name, picture, period, nextWatering, frequency)
-                model.insertFlower(flower)
+                model.dao.insertFlower(flower)
             }
         }
     }
