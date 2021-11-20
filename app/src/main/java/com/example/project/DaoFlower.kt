@@ -6,7 +6,7 @@ import androidx.room.*
 interface DaoFlower {
 
     @Insert(entity = Flower::class, onConflict = OnConflictStrategy.IGNORE)
-    fun insertPays(vararg flower: Flower) : List<Long>
+    fun insertFlower(vararg flower: Flower) : List<Long>
 
     @Query("SELECT * FROM Flower")
     fun loadAll() : Array<Flower>
