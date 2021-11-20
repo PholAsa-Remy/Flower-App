@@ -90,13 +90,14 @@
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/ed_frequency" />
+            android:id="@+id/ed_frequency"
+            android:inputType="number"/>
     </LinearLayout>
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="add flower"
+        android:text="Confirm"
         android:id="@+id/b_addFlower" />
 
 </LinearLayout>
