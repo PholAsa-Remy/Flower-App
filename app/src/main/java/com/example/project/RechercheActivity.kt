@@ -29,8 +29,8 @@ class RechercheActivity : AppCompatActivity() {
         binding.recyclerView.layoutManager = LinearLayoutManager(this)
         binding.recyclerView.adapter = adapter
 
-        model.flower.value?.let {adapter.maj_flower(it)}
-        model.flower.observe(this) {
+        model.flowers.value?.let {adapter.maj_flower(it)}
+        model.flowers.observe(this) {
             adapter.maj_flower(it)
         }
 
