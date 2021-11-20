@@ -19,8 +19,10 @@ class AddActivity : AppCompatActivity() {
         setContentView( binding.root)
 
         model = ViewModelProvider(this).get(FlowerViewModel::class.java)
-        model.flowers.observe(this){
-            Toast.makeText(this, "Add new flower", Toast.LENGTH_SHORT).show()
+        model.insertInfo.observe(this){
+            if (it == 1) {
+                Toast.makeText(this, "Add new flower", Toast.LENGTH_SHORT).show()
+            }
         }
 
 
@@ -35,7 +37,7 @@ class AddActivity : AppCompatActivity() {
                 Toast.makeText(this, "lack of informations", Toast.LENGTH_SHORT).show()
             }else{
                 flower = Flower(name, picture, period, nextWatering, frequency)
-                model.dao.insertFlower(flower)
+                model.insertFlower(flower)
             }
         }
     }
