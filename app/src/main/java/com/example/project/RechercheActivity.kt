@@ -38,7 +38,7 @@ class RechercheActivity : AppCompatActivity() {
         model = ViewModelProvider(this).get(FlowerViewModel::class.java)
         model.loadAllFlower()
 
-        var adapter = RechercheRecycledAdapter()
+        var adapter = RechercheRecycledAdapter(model,launcher)
 
         binding.recyclerView.hasFixedSize()
         binding.recyclerView.layoutManager = LinearLayoutManager(this)
