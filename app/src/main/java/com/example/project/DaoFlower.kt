@@ -11,6 +11,9 @@ interface DaoFlower {
     @Query("SELECT * FROM Flower")
     fun loadAll() : Array<Flower>
 
+    @Query("SELECT * FROM Flower WHERE name = :name")
+    fun loadFlower(name : String) : Array<Flower>
+
     @Update
     fun updateFlower(flower : Flower)
 }

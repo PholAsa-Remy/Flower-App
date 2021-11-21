@@ -11,7 +11,9 @@ class FlowerViewModel (application: Application) : AndroidViewModel(application)
     val insertInfo = MutableLiveData<Int>(-1)
 
     fun loadAllFlower (){
-        Thread { flowers.postValue(dao.loadAll().toList()) }.start()
+        Thread {
+            flowers.postValue(dao.loadAll().toList())
+        }.start()
     }
 
     fun insertFlower(vararg flower : Flower) {
@@ -25,6 +27,12 @@ class FlowerViewModel (application: Application) : AndroidViewModel(application)
     fun updateFlower (flower : Flower) {
         Thread{
             dao.updateFlower(flower)
+        }.start()
+    }
+
+    fun loadFlower (name : String){
+        Thread {
+            flowers.postValue(dao.loadFlower(name).toList())
         }.start()
     }
 }
