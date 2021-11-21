@@ -14,5 +14,8 @@ class ModifyActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityModifyBinding.inflate( layoutInflater )
         setContentView( binding.root)
+
+        val receivedIntent = intent
+        binding.flowername.setText(receivedIntent.getStringExtra("name"))
     }
 }
