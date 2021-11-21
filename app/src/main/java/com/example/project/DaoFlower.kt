@@ -16,4 +16,7 @@ interface DaoFlower {
 
     @Update
     fun updateFlower(flower : Flower)
+
+    @Delete
+    fun deleteFlower(flower : Flower) : Int
 }

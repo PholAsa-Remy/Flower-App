@@ -35,4 +35,10 @@ class FlowerViewModel (application: Application) : AndroidViewModel(application)
             flowers.postValue(dao.loadFlower(name).toList())
         }.start()
     }
+
+    fun deleteFlower (flower:Flower){
+        Thread {
+            dao.deleteFlower(flower)
+        }.start()
+    }
 }
