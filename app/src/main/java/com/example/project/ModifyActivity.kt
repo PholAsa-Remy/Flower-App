@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import com.example.project.databinding.ActivityModifyBinding
-import com.example.project.databinding.ActivityRechercheBinding
 
 class ModifyActivity : AppCompatActivity() {
 
