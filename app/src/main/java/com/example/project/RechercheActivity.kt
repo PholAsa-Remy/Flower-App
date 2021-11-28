@@ -4,6 +4,8 @@ import android.app.Activity
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
@@ -43,6 +45,21 @@ class RechercheActivity : AppCompatActivity() {
         binding.recyclerView.hasFixedSize()
         binding.recyclerView.layoutManager = LinearLayoutManager(this)
         binding.recyclerView.adapter = adapter
+
+        //recherche edit text
+        val textWatcher = object : TextWatcher {
+            override fun afterTextChanged(editable : Editable) {
+                model.loadPartialFlower(editable.toString())
+            }
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+
+            }
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+
+            }
+        }
+        binding.rechercheFlower.addTextChangedListener(textWatcher)
+
 
         model.flowers.value?.let {adapter.maj_flower(it)}
         model.flowers.observe(this) {

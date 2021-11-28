@@ -36,6 +36,12 @@ class FlowerViewModel (application: Application) : AndroidViewModel(application)
         }.start()
     }
 
+    fun loadPartialFlower (name : String){
+        Thread {
+            flowers.postValue(dao.loadPartialFlower(name).toList())
+        }.start()
+    }
+
     fun deleteFlower (flower:Flower){
         Thread {
             dao.deleteFlower(flower)
