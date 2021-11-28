@@ -2,8 +2,10 @@ package com.example.project
 
 import android.app.Activity
 import android.content.Intent
+import android.graphics.Bitmap
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.provider.MediaStore
 import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
@@ -16,6 +18,15 @@ class AddActivity : AppCompatActivity() {
     lateinit var binding : ActivityAddBinding
     lateinit var flower : Flower
     lateinit var model : FlowerViewModel
+
+    val launcher: ActivityResultLauncher<Intent> = registerForActivityResult (
+        ActivityResultContracts.StartActivityForResult())
+    { //listener
+        if (it.resultCode == Activity.RESULT_OK){
+            val imageBitmap = it.data?.extras?.get("data") as Bitmap
+            binding.flowerPicture.setImageBitmap(imageBitmap)
+        }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,7 +43,11 @@ class AddActivity : AppCompatActivity() {
             }
         }
 
+        binding.flowerPicture.setOnClickListener(){
+            val takePictureIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
+            launcher.launch(takePictureIntent)
 
+        }
         binding.bAddFlower.setOnClickListener(){
             val name = binding.edName.text.toString()
             val picture = binding.edPicture.text.toString()
