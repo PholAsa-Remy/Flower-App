@@ -1,15 +1,20 @@
 package com.example.project
 
 import android.content.Intent
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.activity.result.ActivityResultLauncher
 import androidx.recyclerview.widget.RecyclerView
 import com.example.project.databinding.ItemRechercheLayoutBinding
+import java.io.File
+import java.io.FileInputStream
+import java.nio.file.Files
 
 //TODO : Remplacer list avec autre chose
-class RechercheRecycledAdapter (val model : FlowerViewModel, val launcher: ActivityResultLauncher<Intent>,val rechercheContext : RechercheActivity) : RecyclerView.Adapter<RechercheRecycledAdapter.VH>(){
+class RechercheRecycledAdapter (val model : FlowerViewModel, val launcher: ActivityResultLauncher<Intent>,val rechercheContext : RechercheActivity, val fileDirectory : File) : RecyclerView.Adapter<RechercheRecycledAdapter.VH>(){
     var list : List<Flower> = mutableListOf()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RechercheRecycledAdapter.VH {
@@ -26,7 +31,8 @@ class RechercheRecycledAdapter (val model : FlowerViewModel, val launcher: Activ
             launcher.launch(goToModify)
         }
         holder.binding.cardViewRecherche.setOnClickListener(modifyListener)
-
+        if (list.get(position).picture != "none")
+            holder.binding.flowerPicture.setImageBitmap(loadPhoto (list.get(position).picture))
         holder.binding.name.setText(list.get(position).name)
     }
 
@@ -35,6 +41,12 @@ class RechercheRecycledAdapter (val model : FlowerViewModel, val launcher: Activ
     fun maj_flower (flower : List<Flower>){
         list = flower
         this.notifyDataSetChanged()
+    }
+
+    private fun loadPhoto (filename : String) : Bitmap {
+        var f = File(fileDirectory, filename)
+        var b : Bitmap = BitmapFactory.decodeStream(FileInputStream(f))
+        return b
     }
 
     class VH(val binding: ItemRechercheLayoutBinding) : RecyclerView.ViewHolder( binding.root )

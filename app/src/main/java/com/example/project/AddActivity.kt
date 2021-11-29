@@ -38,8 +38,6 @@ class AddActivity : AppCompatActivity() {
         if (it.resultCode == Activity.RESULT_OK){
             imageBitmap = it.data?.extras?.get("data") as Bitmap
             binding.flowerPicture.setImageBitmap(imageBitmap)
-            savePhoto ("a", imageBitmap)
-            binding.imageView.setImageBitmap(loadPhoto("a.jpg"))
         }
     }
 
@@ -65,7 +63,7 @@ class AddActivity : AppCompatActivity() {
 
         binding.bAddFlower.setOnClickListener(){
             val name = binding.edName.text.toString()
-            val picture = binding.edPicture.text.toString()
+            var picture = "${name}.jpg"
             val period = binding.edPeriod.text.toString()
             val nextWatering = binding.edNextWatering.text.toString()
             val frequency = binding.edFrequency.text.toString()
@@ -73,18 +71,27 @@ class AddActivity : AppCompatActivity() {
             if (name == "" || picture == "" || period == "" || nextWatering == "" || frequency == "" || frequency.toInt() <= 0){
                 Toast.makeText(this, "Some field are missing", Toast.LENGTH_SHORT).show()
             }else{
+
+                if (this::imageBitmap.isInitialized) {
+                    savePhoto (name, imageBitmap)
+                }else {
+                    picture = "none" //Mets une image par défaut si null
+                }
                 flower = Flower(name, picture, period, nextWatering, frequency.toInt())
                 model.insertFlower(flower)
             }
         }
     }
 
+    /*
     private fun loadPhoto (filename : String) : Bitmap {
-        var file = getFilesDir()
-        var f = File(file, filename)
+        var fileDirectory = getFilesDir()
+        var f = File(fileDirectory, filename)
         var b : Bitmap = BitmapFactory.decodeStream(FileInputStream(f))
         return b
     }
+     */
+
     private fun savePhoto (filename : String, bmp : Bitmap) : Boolean {
         return try {
             // Need Output stream

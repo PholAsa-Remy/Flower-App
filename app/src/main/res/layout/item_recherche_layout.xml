@@ -19,14 +19,20 @@
         android:paddingTop="8dp"
         android:paddingBottom="4dp">
 
+        <ImageView
+            android:id="@+id/flower_picture"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            app:srcCompat="@drawable/ic_launcher_foreground" />
+
         <TextView
             android:id="@+id/name"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:tag="name"
             android:paddingStart="10dp"
-            />
+            android:tag="name" />
 
     </LinearLayout>
 
