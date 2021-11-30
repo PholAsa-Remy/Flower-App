@@ -25,7 +25,6 @@ class ModifyActivity : AppCompatActivity() {
         //Fill the information
         model.flowers.observe(this) {
             if (it.size == 1){
-                Toast.makeText(this, it[0].name, Toast.LENGTH_SHORT).show()
                 binding.edName.setText(it[0].name)
                 binding.edLatinName.setText(it[0].latinName)
                 binding.edFrequency.setText(it[0].frequency)
@@ -47,8 +46,6 @@ class ModifyActivity : AppCompatActivity() {
                 flower.latinName = latinName
                 flower.frequency = frequency
                 flower.nutrimentFrequency = nutrimentFrequency.toInt()
-                //val flower = Flower(name, latinName, frequency, nutrimentFrequency.toInt() )
-                //flower.id = receivedIntent!!.getIntExtra("id")
                 model.updateFlower (flower)
 
                 var goToRecherche : Intent = Intent (this, RechercheActivity:: class.java)

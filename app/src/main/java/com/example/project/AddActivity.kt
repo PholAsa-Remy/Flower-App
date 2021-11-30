@@ -76,7 +76,6 @@ class AddActivity : AppCompatActivity() {
                 if (this::imageBitmap.isInitialized) {
                     savePhoto (flower.id.toString(), imageBitmap)
                 }
-                Toast.makeText(this, "AJOUTTTTTTTTTTTTTTTTTTT", Toast.LENGTH_SHORT).show()
                 model.insertFlower(flower)
             }
         }
