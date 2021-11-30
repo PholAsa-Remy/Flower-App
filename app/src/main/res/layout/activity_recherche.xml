@@ -7,6 +7,13 @@
     android:orientation="vertical"
     tools:context=".RechercheActivity">
 
+    <EditText
+        android:id="@+id/recherche_flower"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="rechercheFlower"
+        />
+
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
