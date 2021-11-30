@@ -2,6 +2,8 @@ package com.example.project
 
 import android.app.Activity
 import android.content.Intent
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Editable
@@ -13,6 +15,8 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.project.databinding.ActivityMainBinding
 import com.example.project.databinding.ActivityRechercheBinding
+import java.io.File
+import java.io.FileInputStream
 
 class RechercheActivity : AppCompatActivity() {
 
@@ -40,7 +44,7 @@ class RechercheActivity : AppCompatActivity() {
         model = ViewModelProvider(this).get(FlowerViewModel::class.java)
         model.loadAllFlower()
 
-        var adapter = RechercheRecycledAdapter(model,launcher , this@RechercheActivity)
+        var adapter = RechercheRecycledAdapter(model,launcher , this@RechercheActivity,getFilesDir())
 
         binding.recyclerView.hasFixedSize()
         binding.recyclerView.layoutManager = LinearLayoutManager(this)
