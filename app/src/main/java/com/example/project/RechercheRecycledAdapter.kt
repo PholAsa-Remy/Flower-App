@@ -28,7 +28,7 @@ class RechercheRecycledAdapter (val model : FlowerViewModel, val launcher: Activ
         // On Click : Modify the flower with the primary key of the flower
         val modifyListener = View.OnClickListener { view ->
             val goToModify : Intent = Intent (rechercheContext, ModifyActivity:: class.java)
-            goToModify.putExtra("name",list.get(position).name)
+            goToModify.putExtra("id",list.get(position).id)
             launcher.launch(goToModify)
         }
         holder.binding.cardViewRecherche.setOnClickListener(modifyListener)

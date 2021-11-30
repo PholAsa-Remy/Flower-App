@@ -11,8 +11,8 @@ interface DaoFlower {
     @Query("SELECT * FROM Flower")
     fun loadAll() : Array<Flower>
 
-    @Query("SELECT * FROM Flower WHERE name = :name")
-    fun loadFlower(name : String) : Array<Flower>
+    @Query("SELECT * FROM Flower WHERE id = :id")
+    fun loadFlower(id : Int) : Array<Flower>
 
     @Query("SELECT * FROM Flower f WHERE f.name LIKE :name || '%'")
     fun loadPartialFlower(name : String) : Array<Flower>

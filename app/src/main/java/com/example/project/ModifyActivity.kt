@@ -20,7 +20,7 @@ class ModifyActivity : AppCompatActivity() {
         val receivedIntent = intent
         //Get the flower with the primary key
         model = ViewModelProvider(this).get(FlowerViewModel::class.java)
-        model.loadFlower(receivedIntent.getStringExtra("name")!!)
+        model.loadFlower(receivedIntent.getIntExtra("id", 0)!!)
 
         //Fill the information
         model.flowers.observe(this) {
@@ -29,7 +29,7 @@ class ModifyActivity : AppCompatActivity() {
                 binding.edName.setText(it[0].name)
                 binding.edLatinName.setText(it[0].latinName)
                 binding.edFrequency.setText(it[0].frequency)
-                binding.edNutrimentFrequency.setText(it[0].frequency)
+                binding.edNutrimentFrequency.setText(it[0].nutrimentFrequency.toString())
             }
         }
 
@@ -42,7 +42,13 @@ class ModifyActivity : AppCompatActivity() {
             if (name == "" || latinName == "" || frequency == "" || nutrimentFrequency == "" || nutrimentFrequency.toInt() <= 0){
                 Toast.makeText(this, "Some field are missing", Toast.LENGTH_SHORT).show()
             }else{
-                val flower = Flower(name, latinName, frequency, nutrimentFrequency.toInt() )
+                val flower = model.flowers.value?.get(0)!!
+                flower.name = name
+                flower.latinName = latinName
+                flower.frequency = frequency
+                flower.nutrimentFrequency = nutrimentFrequency.toInt()
+                //val flower = Flower(name, latinName, frequency, nutrimentFrequency.toInt() )
+                //flower.id = receivedIntent!!.getIntExtra("id")
                 model.updateFlower (flower)
 
                 var goToRecherche : Intent = Intent (this, RechercheActivity:: class.java)
