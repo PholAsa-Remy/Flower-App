@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.project.databinding.ItemRechercheLayoutBinding
 import java.io.File
 import java.io.FileInputStream
+import java.lang.Exception
 import java.nio.file.Files
 
 //TODO : Remplacer list avec autre chose
@@ -31,8 +32,12 @@ class RechercheRecycledAdapter (val model : FlowerViewModel, val launcher: Activ
             launcher.launch(goToModify)
         }
         holder.binding.cardViewRecherche.setOnClickListener(modifyListener)
-        if (list.get(position).picture != "none")
-            holder.binding.flowerPicture.setImageBitmap(loadPhoto (list.get(position).picture))
+        //TODO : à tester
+        try {
+            holder.binding.flowerPicture.setImageBitmap(loadPhoto(list.get(position).picture))
+        }catch(e : Exception){
+
+        }
         holder.binding.name.setText(list.get(position).name)
     }
 

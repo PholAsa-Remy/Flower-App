@@ -26,26 +26,23 @@ class ModifyActivity : AppCompatActivity() {
         model.flowers.observe(this) {
             if (it.size == 1){
                 Toast.makeText(this, it[0].name, Toast.LENGTH_SHORT).show()
-                binding.flowerName.setText(it[0].name)
-                binding.edPicture.setText(it[0].picture)
-                binding.edPeriod.setText(it[0].period)
-                binding.edNextWatering.setText(it[0].nextWatering)
-                binding.edFrequency.setText(it[0].frequency.toString())
+                binding.edName.setText(it[0].name)
+                binding.edLatinName.setText(it[0].latinName)
+                binding.edFrequency.setText(it[0].frequency)
+                binding.edNutrimentFrequency.setText(it[0].frequency)
             }
         }
 
         binding.bModifyFlower.setOnClickListener(){
-            val name = binding.flowerName.text.toString()
-            val picture = binding.edPicture.text.toString()
-            val period = binding.edPeriod.text.toString()
-            val nextWatering = binding.edNextWatering.text.toString()
+            val name = binding.edName.text.toString()
+            val latinName = binding.edLatinName.text.toString()
             val frequency = binding.edFrequency.text.toString()
+            val nutrimentFrequency = binding.edNutrimentFrequency.text.toString()
 
-
-            if (name == "" || picture == "" || period == "" || nextWatering == "" || frequency == "" || frequency.toInt() <= 0){
+            if (name == "" || latinName == "" || frequency == "" || nutrimentFrequency == "" || nutrimentFrequency.toInt() <= 0){
                 Toast.makeText(this, "Some field are missing", Toast.LENGTH_SHORT).show()
             }else{
-                val flower = Flower(name, picture, period, nextWatering, frequency.toInt())
+                val flower = Flower(name, latinName, frequency, nutrimentFrequency.toInt() )
                 model.updateFlower (flower)
 
                 var goToRecherche : Intent = Intent (this, RechercheActivity:: class.java)

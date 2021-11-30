@@ -63,21 +63,20 @@ class AddActivity : AppCompatActivity() {
 
         binding.bAddFlower.setOnClickListener(){
             val name = binding.edName.text.toString()
-            var picture = "${name}.jpg"
-            val period = binding.edPeriod.text.toString()
-            val nextWatering = binding.edNextWatering.text.toString()
+            val latinName = binding.edLatinName.text.toString()
             val frequency = binding.edFrequency.text.toString()
+            val nutrimentFrequency = binding.edNutrimentFrequency.text.toString()
 
-            if (name == "" || picture == "" || period == "" || nextWatering == "" || frequency == "" || frequency.toInt() <= 0){
+            if (name == "" || latinName == "" || frequency == "" || nutrimentFrequency == "" || nutrimentFrequency.toInt() <= 0){
                 Toast.makeText(this, "Some field are missing", Toast.LENGTH_SHORT).show()
             }else{
 
+                flower = Flower(name, latinName, frequency, nutrimentFrequency.toInt() )
+
                 if (this::imageBitmap.isInitialized) {
-                    savePhoto (name, imageBitmap)
-                }else {
-                    picture = "none" //Mets une image par défaut si null
+                    savePhoto (flower.id.toString(), imageBitmap)
                 }
-                flower = Flower(name, picture, period, nextWatering, frequency.toInt())
+                Toast.makeText(this, "AJOUTTTTTTTTTTTTTTTTTTT", Toast.LENGTH_SHORT).show()
                 model.insertFlower(flower)
             }
         }

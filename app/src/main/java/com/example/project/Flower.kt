@@ -1,6 +1,21 @@
 package com.example.project
 
 import androidx.room.*
+import androidx.room.PrimaryKey
+
+
+
 
 @Entity
-data class Flower(@PrimaryKey val name : String, val picture : String, val period : String, val nextWatering: String,val frequency:Int)
+data class Flower(
+    var name : String,
+    var latinName : String,
+    var frequency: String,
+    var nutrimentFrequency : Int )
+
+{
+    @PrimaryKey(autoGenerate = true) var id : Int = 0
+    var picture : String = "$id.jpg"
+    var nextWatering: String = ""
+    var nextNutriment : Int = nutrimentFrequency
+}
