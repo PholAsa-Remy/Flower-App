@@ -12,10 +12,9 @@ import com.example.project.databinding.ItemRechercheLayoutBinding
 import java.io.File
 import java.io.FileInputStream
 import java.lang.Exception
-import java.nio.file.Files
 
 //TODO : Remplacer list avec autre chose
-class RechercheRecycledAdapter (val model : FlowerViewModel, val launcher: ActivityResultLauncher<Intent>,val rechercheContext : RechercheActivity, val fileDirectory : File) : RecyclerView.Adapter<RechercheRecycledAdapter.VH>(){
+class RechercheRecycledAdapter (val model : FlowerViewModel, val launcher: ActivityResultLauncher<Intent>, val researchContext : ResearchActivity, val fileDirectory : File) : RecyclerView.Adapter<RechercheRecycledAdapter.VH>(){
     var list : List<Flower> = mutableListOf()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RechercheRecycledAdapter.VH {
@@ -27,7 +26,7 @@ class RechercheRecycledAdapter (val model : FlowerViewModel, val launcher: Activ
     override fun onBindViewHolder(holder: RechercheRecycledAdapter.VH, position: Int) {
         // On Click : Modify the flower with the primary key of the flower
         val modifyListener = View.OnClickListener { view ->
-            val goToModify : Intent = Intent (rechercheContext, ModifyActivity:: class.java)
+            val goToModify : Intent = Intent (researchContext, ModifyActivity:: class.java)
             goToModify.putExtra("id",list.get(position).id)
             launcher.launch(goToModify)
         }

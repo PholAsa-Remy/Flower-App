@@ -19,7 +19,7 @@
             android:name=".ModifyActivity"
             android:exported="true" />
         <activity
-            android:name=".RechercheActivity"
+            android:name=".ResearchActivity"
             android:exported="true" />
         <activity
             android:name=".MainActivity"

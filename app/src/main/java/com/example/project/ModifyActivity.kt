@@ -48,16 +48,16 @@ class ModifyActivity : AppCompatActivity() {
                 flower.nutrimentFrequency = nutrimentFrequency.toInt()
                 model.updateFlower (flower)
 
-                var goToRecherche : Intent = Intent (this, RechercheActivity:: class.java)
-                setResult(RESULT_OK,goToRecherche)
+                var goToResearch : Intent = Intent (this, ResearchActivity:: class.java)
+                setResult(RESULT_OK,goToResearch)
                 finish()
             }
         }
 
         binding.bDeleteFlower.setOnClickListener(){
             model.deleteFlower(model.flowers.value?.get(0)!!)
-            var goToRecherche : Intent = Intent (this, RechercheActivity:: class.java)
-            setResult(RESULT_OK,goToRecherche)
+            var goToResearch : Intent = Intent (this, ResearchActivity:: class.java)
+            setResult(RESULT_OK,goToResearch)
             finish()
         }
 
