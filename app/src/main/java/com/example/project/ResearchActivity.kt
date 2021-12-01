@@ -38,7 +38,7 @@ class ResearchActivity : AppCompatActivity() {
         model = ViewModelProvider(this).get(FlowerViewModel::class.java)
         model.loadAllFlower()
 
-        var adapter = RechercheRecycledAdapter(model,launcher , this@ResearchActivity,getFilesDir())
+        var adapter = ResearchRecycledAdapter(model,launcher , this@ResearchActivity,getFilesDir())
 
         binding.recyclerView.hasFixedSize()
         binding.recyclerView.layoutManager = LinearLayoutManager(this)
