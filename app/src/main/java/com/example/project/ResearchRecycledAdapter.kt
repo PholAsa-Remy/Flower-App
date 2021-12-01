@@ -14,16 +14,16 @@ import java.io.FileInputStream
 import java.lang.Exception
 
 //TODO : Remplacer list avec autre chose
-class RechercheRecycledAdapter (val model : FlowerViewModel, val launcher: ActivityResultLauncher<Intent>, val researchContext : ResearchActivity, val fileDirectory : File) : RecyclerView.Adapter<RechercheRecycledAdapter.VH>(){
+class ResearchRecycledAdapter (val model : FlowerViewModel, val launcher: ActivityResultLauncher<Intent>, val researchContext : ResearchActivity, val fileDirectory : File) : RecyclerView.Adapter<ResearchRecycledAdapter.VH>(){
     var list : List<Flower> = mutableListOf()
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RechercheRecycledAdapter.VH {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ResearchRecycledAdapter.VH {
         val binding = ItemRechercheLayoutBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false)
 
-        return RechercheRecycledAdapter.VH(binding)
+        return ResearchRecycledAdapter.VH(binding)
     }
 
-    override fun onBindViewHolder(holder: RechercheRecycledAdapter.VH, position: Int) {
+    override fun onBindViewHolder(holder: ResearchRecycledAdapter.VH, position: Int) {
         // On Click : Modify the flower with the primary key of the flower
         val modifyListener = View.OnClickListener { view ->
             val goToModify : Intent = Intent (researchContext, ModifyActivity:: class.java)
