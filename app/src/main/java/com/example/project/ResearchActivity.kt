@@ -10,11 +10,11 @@ import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.project.databinding.ActivityRechercheBinding
+import com.example.project.databinding.ActivityResearchBinding
 
 class ResearchActivity : AppCompatActivity() {
 
-    lateinit var binding : ActivityRechercheBinding
+    lateinit var binding : ActivityResearchBinding
     lateinit var model : FlowerViewModel
 
     val launcher: ActivityResultLauncher<Intent> = registerForActivityResult (
@@ -27,7 +27,7 @@ class ResearchActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityRechercheBinding.inflate( layoutInflater )
+        binding = ActivityResearchBinding.inflate( layoutInflater )
         setContentView( binding.root)
 
         binding.buttonAdd.setOnClickListener(){
