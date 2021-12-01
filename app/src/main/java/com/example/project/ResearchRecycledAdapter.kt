@@ -8,7 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.activity.result.ActivityResultLauncher
 import androidx.recyclerview.widget.RecyclerView
-import com.example.project.databinding.ItemRechercheLayoutBinding
+import com.example.project.databinding.ItemResearchLayoutBinding
 import java.io.File
 import java.io.FileInputStream
 import java.lang.Exception
@@ -18,7 +18,7 @@ class ResearchRecycledAdapter (val model : FlowerViewModel, val launcher: Activi
     var list : List<Flower> = mutableListOf()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ResearchRecycledAdapter.VH {
-        val binding = ItemRechercheLayoutBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false)
+        val binding = ItemResearchLayoutBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false)
 
         return ResearchRecycledAdapter.VH(binding)
     }
@@ -53,6 +53,6 @@ class ResearchRecycledAdapter (val model : FlowerViewModel, val launcher: Activi
         return b
     }
 
-    class VH(val binding: ItemRechercheLayoutBinding) : RecyclerView.ViewHolder( binding.root )
+    class VH(val binding: ItemResearchLayoutBinding) : RecyclerView.ViewHolder( binding.root )
 
 }
