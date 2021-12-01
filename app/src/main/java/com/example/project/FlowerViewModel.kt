@@ -30,9 +30,9 @@ class FlowerViewModel (application: Application) : AndroidViewModel(application)
         }.start()
     }
 
-    fun loadFlower (name : String){
+    fun loadFlower (id : Int){
         Thread {
-            flowers.postValue(dao.loadFlower(name).toList())
+            flowers.postValue(dao.loadFlower(id).toList())
         }.start()
     }
 
