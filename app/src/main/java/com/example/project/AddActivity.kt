@@ -1,26 +1,16 @@
 package com.example.project
 
 import android.app.Activity
-import android.content.Context
-import android.content.ContextWrapper
 import android.content.Intent
 import android.graphics.Bitmap
-import android.graphics.BitmapFactory
-import android.icu.text.SimpleDateFormat
-import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.os.Environment
 import android.provider.MediaStore
 import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.core.content.FileProvider
 import androidx.lifecycle.ViewModelProvider
 import com.example.project.databinding.ActivityAddBinding
-import com.example.project.databinding.ActivityMainBinding
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.withContext
 import java.io.*
 import java.util.*
 
@@ -50,8 +40,8 @@ class AddActivity : AppCompatActivity() {
         model.insertInfo.observe(this){
             if (it == 1) {
                 Toast.makeText(this, "Add new flower", Toast.LENGTH_SHORT).show()
-                var goToRecherche : Intent = Intent (this, RechercheActivity:: class.java)
-                setResult(RESULT_OK,goToRecherche)
+                var goToResearch : Intent = Intent (this, ResearchActivity:: class.java)
+                setResult(RESULT_OK,goToResearch)
                 finish()
             }
         }

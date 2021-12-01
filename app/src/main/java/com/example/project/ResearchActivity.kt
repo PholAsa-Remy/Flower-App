@@ -2,25 +2,19 @@ package com.example.project
 
 import android.app.Activity
 import android.content.Intent
-import android.graphics.Bitmap
-import android.graphics.BitmapFactory
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.project.databinding.ActivityMainBinding
-import com.example.project.databinding.ActivityRechercheBinding
-import java.io.File
-import java.io.FileInputStream
+import com.example.project.databinding.ActivityResearchBinding
 
-class RechercheActivity : AppCompatActivity() {
+class ResearchActivity : AppCompatActivity() {
 
-    lateinit var binding : ActivityRechercheBinding
+    lateinit var binding : ActivityResearchBinding
     lateinit var model : FlowerViewModel
 
     val launcher: ActivityResultLauncher<Intent> = registerForActivityResult (
@@ -33,24 +27,24 @@ class RechercheActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityRechercheBinding.inflate( layoutInflater )
+        binding = ActivityResearchBinding.inflate( layoutInflater )
         setContentView( binding.root)
 
         binding.buttonAdd.setOnClickListener(){
-            val goToAdd : Intent = Intent(this@RechercheActivity, AddActivity :: class.java)
+            val goToAdd : Intent = Intent(this@ResearchActivity, AddActivity :: class.java)
             launcher.launch(goToAdd)
         }
 
         model = ViewModelProvider(this).get(FlowerViewModel::class.java)
         model.loadAllFlower()
 
-        var adapter = RechercheRecycledAdapter(model,launcher , this@RechercheActivity,getFilesDir())
+        var adapter = ResearchRecycledAdapter(model,launcher , this@ResearchActivity,getFilesDir())
 
         binding.recyclerView.hasFixedSize()
         binding.recyclerView.layoutManager = LinearLayoutManager(this)
         binding.recyclerView.adapter = adapter
 
-        //recherche edit text
+        //research edit text
         val textWatcher = object : TextWatcher {
             override fun afterTextChanged(editable : Editable) {
                 model.loadPartialFlower(editable.toString())

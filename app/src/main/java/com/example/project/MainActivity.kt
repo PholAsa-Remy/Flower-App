@@ -4,8 +4,6 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.example.project.databinding.ActivityMainBinding
-import java.io.File
-import java.io.PrintWriter
 
 class MainActivity : AppCompatActivity() {
 
@@ -22,8 +20,8 @@ class MainActivity : AppCompatActivity() {
         }
 
         binding.recherchebutton.setOnClickListener(){
-            var goToRecherche : Intent = Intent (this, RechercheActivity:: class.java)
-            startActivity(goToRecherche)
+            var goToResearch : Intent = Intent (this, ResearchActivity:: class.java)
+            startActivity(goToResearch)
         }
 
     }
