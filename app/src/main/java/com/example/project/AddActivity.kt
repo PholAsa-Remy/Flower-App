@@ -12,6 +12,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.lifecycle.ViewModelProvider
 import com.example.project.databinding.ActivityAddBinding
 import java.io.*
+import java.text.SimpleDateFormat
 import java.util.*
 
 
@@ -60,8 +61,16 @@ class AddActivity : AppCompatActivity() {
             if (name == "" || latinName == "" || frequency == "" || nutrimentFrequency == "" || nutrimentFrequency.toInt() <= 0){
                 Toast.makeText(this, "Some field are missing", Toast.LENGTH_SHORT).show()
             }else{
+                var photo : String
+                if (this::imageBitmap.isInitialized) {
+                    val timeStamp: String = SimpleDateFormat("yyyyMMdd_HHmmss").format(Date())
+                    savePhoto (timeStamp, imageBitmap)
+                    photo = "$timeStamp.jpg"
+                }else{
+                    photo = "None"
+                }
 
-                flower = Flower(name, latinName, frequency, nutrimentFrequency.toInt() )
+                flower = Flower(name, latinName, frequency, nutrimentFrequency.toInt(),photo )
 
                 if (this::imageBitmap.isInitialized) {
                     savePhoto (flower.id.toString(), imageBitmap)
