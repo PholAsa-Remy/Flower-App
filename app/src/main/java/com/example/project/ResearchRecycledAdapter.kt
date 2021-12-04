@@ -14,7 +14,7 @@ import java.io.FileInputStream
 import java.lang.Exception
 
 //TODO : Remplacer list avec autre chose
-class ResearchRecycledAdapter (val model : FlowerViewModel, val launcher: ActivityResultLauncher<Intent>, val researchContext : ResearchActivity, val fileDirectory : File) : RecyclerView.Adapter<ResearchRecycledAdapter.VH>(){
+class ResearchRecycledAdapter (val model : FlowerViewModel, val launcher: ActivityResultLauncher<Intent>, val researchContext : ResearchActivity) : RecyclerView.Adapter<ResearchRecycledAdapter.VH>(){
     var list : List<Flower> = mutableListOf()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ResearchRecycledAdapter.VH {
@@ -33,7 +33,7 @@ class ResearchRecycledAdapter (val model : FlowerViewModel, val launcher: Activi
         holder.binding.cardViewRecherche.setOnClickListener(modifyListener)
         //TODO : à tester
         try {
-            holder.binding.flowerPicture.setImageBitmap(loadPhoto(list.get(position).picture))
+            holder.binding.flowerPicture.setImageBitmap(PhotoManager.loadPhoto(list.get(position).picture, researchContext))
         }catch(e : Exception){
 
         }
@@ -45,12 +45,6 @@ class ResearchRecycledAdapter (val model : FlowerViewModel, val launcher: Activi
     fun maj_flower (flower : List<Flower>){
         list = flower
         this.notifyDataSetChanged()
-    }
-
-    private fun loadPhoto (filename : String) : Bitmap {
-        var f = File(fileDirectory, filename)
-        var b : Bitmap = BitmapFactory.decodeStream(FileInputStream(f))
-        return b
     }
 
     class VH(val binding: ItemResearchLayoutBinding) : RecyclerView.ViewHolder( binding.root )

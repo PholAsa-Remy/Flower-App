@@ -48,8 +48,7 @@ class AddActivity : AppCompatActivity() {
         }
 
         binding.flowerPicture.setOnClickListener(){
-            val takePictureIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
-            launcher.launch(takePictureIntent)
+            PhotoManager.takePhoto(launcher)
         }
 
         binding.bAddFlower.setOnClickListener(){
@@ -64,43 +63,15 @@ class AddActivity : AppCompatActivity() {
                 var photo : String
                 if (this::imageBitmap.isInitialized) {
                     val timeStamp: String = SimpleDateFormat("yyyyMMdd_HHmmss").format(Date())
-                    savePhoto (timeStamp, imageBitmap)
+                    PhotoManager.savePhoto (timeStamp, imageBitmap,this)
                     photo = "$timeStamp.jpg"
                 }else{
                     photo = "None"
                 }
 
                 flower = Flower(name, latinName, frequency, nutrimentFrequency.toInt(),photo )
-
-                if (this::imageBitmap.isInitialized) {
-                    savePhoto (flower.id.toString(), imageBitmap)
-                }
                 model.insertFlower(flower)
             }
         }
     }
-
-    /*
-    private fun loadPhoto (filename : String) : Bitmap {
-        var fileDirectory = getFilesDir()
-        var f = File(fileDirectory, filename)
-        var b : Bitmap = BitmapFactory.decodeStream(FileInputStream(f))
-        return b
-    }
-     */
-
-    private fun savePhoto (filename : String, bmp : Bitmap) : Boolean {
-        return try {
-            // Need Output stream
-            openFileOutput("$filename.jpg", MODE_PRIVATE).use { stream ->
-                if(!bmp.compress(Bitmap.CompressFormat.JPEG, 95, stream)){
-                    throw IOException ("Couldn't save bitmap.")
-                }
-            }
-            true
-        }catch (e : IOException){
-            false
-        }
-    }
-
 }
