@@ -49,8 +49,10 @@ class ModifyActivity : AppCompatActivity() {
                 binding.edFrequency.setText(flower.frequency)
                 binding.edNutrimentFrequency.setText(flower.nutrimentFrequency.toString())
                 if (flower.picture != "None"){
-                    binding.flowerPicture.setImageBitmap(PhotoManager.loadPhoto(flower.picture, this))
+                    imageBitmap = PhotoManager.loadPhoto(flower.picture, this)
+                    binding.flowerPicture.setImageBitmap(imageBitmap)
                 }
+                reload (savedInstanceState)
             }
         }
         binding.flowerPicture.setOnClickListener(){
@@ -93,6 +95,38 @@ class ModifyActivity : AppCompatActivity() {
             setResult(RESULT_OK,goToResearch)
             finish()
         }
+    }
 
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.putString("name", binding.edName.text.toString())
+        outState.putString("latinName", binding.edLatinName.text.toString())
+        outState.putString("frequency", binding.edFrequency.text.toString())
+        outState.putString("nutrimentFrequency", binding.edNutrimentFrequency.text.toString())
+        if (this::imageBitmap.isInitialized) {
+            PhotoManager.savePhoto ("save", imageBitmap,this)
+            outState.putBoolean("photo_saved", true)
+        }else{
+            outState.putBoolean("photo_saved", false)
+        }
+    }
+
+    fun reload (savedInstanceState: Bundle?){
+        binding.edName.setText(savedInstanceState?.getString("name") ?: flower.name)
+        binding.edLatinName.setText(savedInstanceState?.getString("latinName") ?: flower.latinName)
+        binding.edFrequency.setText(savedInstanceState?.getString("frequency") ?: flower.frequency)
+        binding.edNutrimentFrequency.setText(savedInstanceState?.getString("nutrimentFrequency") ?: flower.nutrimentFrequency.toString())
+
+        val photo_saved = savedInstanceState?.getBoolean("photo_saved") ?: false
+        if (photo_saved) {
+            Toast.makeText(this, "picture", Toast.LENGTH_SHORT).show()
+            imageBitmap = PhotoManager.loadPhoto("save.jpg", this)
+            binding.flowerPicture.setImageBitmap(imageBitmap)
+        }else{
+            if (flower.picture != "None"){
+                binding.flowerPicture.setImageBitmap(PhotoManager.loadPhoto(flower.picture, this))
+            }
+        }
     }
 }
