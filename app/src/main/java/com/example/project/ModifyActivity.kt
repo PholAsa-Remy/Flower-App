@@ -12,6 +12,7 @@ class ModifyActivity : AppCompatActivity() {
     lateinit var binding : ActivityModifyBinding
     lateinit var model :FlowerViewModel
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityModifyBinding.inflate( layoutInflater )

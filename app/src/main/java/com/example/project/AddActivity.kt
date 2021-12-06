@@ -12,6 +12,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.lifecycle.ViewModelProvider
 import com.example.project.databinding.ActivityAddBinding
 import java.io.*
+import java.text.SimpleDateFormat
 import java.util.*
 
 
@@ -47,8 +48,7 @@ class AddActivity : AppCompatActivity() {
         }
 
         binding.flowerPicture.setOnClickListener(){
-            val takePictureIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
-            launcher.launch(takePictureIntent)
+            PhotoManager.takePhoto(launcher)
         }
 
         binding.bAddFlower.setOnClickListener(){
@@ -60,38 +60,18 @@ class AddActivity : AppCompatActivity() {
             if (name == "" || latinName == "" || frequency == "" || nutrimentFrequency == "" || nutrimentFrequency.toInt() <= 0){
                 Toast.makeText(this, "Some field are missing", Toast.LENGTH_SHORT).show()
             }else{
-
-                flower = Flower(name, latinName, frequency, nutrimentFrequency.toInt() )
-
+                var photo : String
                 if (this::imageBitmap.isInitialized) {
-                    savePhoto (flower.id.toString(), imageBitmap)
+                    val timeStamp: String = SimpleDateFormat("yyyyMMdd_HHmmss").format(Date())
+                    PhotoManager.savePhoto (timeStamp, imageBitmap,this)
+                    photo = "$timeStamp.jpg"
+                }else{
+                    photo = "None"
                 }
+
+                flower = Flower(name, latinName, frequency, nutrimentFrequency.toInt(),photo )
                 model.insertFlower(flower)
             }
         }
     }
-
-    /*
-    private fun loadPhoto (filename : String) : Bitmap {
-        var fileDirectory = getFilesDir()
-        var f = File(fileDirectory, filename)
-        var b : Bitmap = BitmapFactory.decodeStream(FileInputStream(f))
-        return b
-    }
-     */
-
-    private fun savePhoto (filename : String, bmp : Bitmap) : Boolean {
-        return try {
-            // Need Output stream
-            openFileOutput("$filename.jpg", MODE_PRIVATE).use { stream ->
-                if(!bmp.compress(Bitmap.CompressFormat.JPEG, 95, stream)){
-                    throw IOException ("Couldn't save bitmap.")
-                }
-            }
-            true
-        }catch (e : IOException){
-            false
-        }
-    }
-
 }
