@@ -102,11 +102,8 @@ class AddActivity : AppCompatActivity() {
 
         val photo_saved = savedInstanceState?.getBoolean("photo_saved") ?: false
         if (photo_saved) {
-            Toast.makeText(this, "picture", Toast.LENGTH_SHORT).show()
             imageBitmap = PhotoManager.loadPhoto("save.jpg", this)
             binding.flowerPicture.setImageBitmap(imageBitmap)
-        }else{
-            Toast.makeText(this, "Nopicture", Toast.LENGTH_SHORT).show()
         }
     }
 
