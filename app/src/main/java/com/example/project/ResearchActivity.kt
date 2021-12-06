@@ -56,7 +56,7 @@ class ResearchActivity : AppCompatActivity() {
 
             }
         }
-        binding.rechercheFlower.addTextChangedListener(textWatcher)
+        binding.researchFlower.addTextChangedListener(textWatcher)
 
 
         model.flowers.value?.let {adapter.maj_flower(it)}

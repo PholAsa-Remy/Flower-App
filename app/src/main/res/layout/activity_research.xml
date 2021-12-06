@@ -8,16 +8,16 @@
     tools:context=".ResearchActivity">
 
     <EditText
-        android:id="@+id/recherche_flower"
+        android:id="@+id/research_flower"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="rechercheFlower"
+        android:hint="researchFlower"
         />
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="fleur"
+        android:text="flower"
         android:gravity="center_horizontal"
         android:textSize="20sp"
         android:layout_marginTop="40dp" />
