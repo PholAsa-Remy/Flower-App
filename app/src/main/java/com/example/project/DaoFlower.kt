@@ -1,6 +1,7 @@
 package com.example.project
 
 import androidx.room.*
+import java.util.*
 
 @Dao
 interface DaoFlower {
@@ -16,6 +17,9 @@ interface DaoFlower {
 
     @Query("SELECT * FROM Flower f WHERE f.name LIKE :name || '%'")
     fun loadPartialFlower(name : String) : Array<Flower>
+
+    @Query("SELECT * FROM Flower f WHERE Date(:date) >= Date(f.nextWatering)")
+    fun loadNextWateringFlower(date : String) : Array<Flower>
 
     @Update
     fun updateFlower(flower : Flower)

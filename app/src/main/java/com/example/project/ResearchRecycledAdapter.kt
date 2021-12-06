@@ -30,7 +30,7 @@ class ResearchRecycledAdapter (val model : FlowerViewModel, val launcher: Activi
             goToModify.putExtra("id",list.get(position).id)
             launcher.launch(goToModify)
         }
-        holder.binding.cardViewRecherche.setOnClickListener(modifyListener)
+        holder.binding.cardViewResearch.setOnClickListener(modifyListener)
         //TODO : à tester
         try {
             holder.binding.flowerPicture.setImageBitmap(PhotoManager.loadPhoto(list.get(position).picture, researchContext))
