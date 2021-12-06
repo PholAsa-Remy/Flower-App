@@ -2,6 +2,7 @@ package com.example.project
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -22,7 +23,7 @@ class RecallActivity : AppCompatActivity() {
 
         model = ViewModelProvider(this).get(FlowerViewModel::class.java)
 
-        model.loadNextWateringFlower(SimpleDateFormat("yyyyMMdd").format(Date()))
+        model.loadNextWateringFlower(SimpleDateFormat("yyyy-MM-dd").format(Date()))
 
         var adapter = RecallRecycledAdapter(model, this@RecallActivity)
         binding.recycler.hasFixedSize() /* pour améliorer les pérformances*/

@@ -18,7 +18,7 @@ interface DaoFlower {
     @Query("SELECT * FROM Flower f WHERE f.name LIKE :name || '%'")
     fun loadPartialFlower(name : String) : Array<Flower>
 
-    @Query("SELECT * FROM Flower f WHERE :date >= f.nextWatering")
+    @Query("SELECT * FROM Flower f WHERE Date(:date) >= Date(f.nextWatering)")
     fun loadNextWateringFlower(date : String) : Array<Flower>
 
     @Update

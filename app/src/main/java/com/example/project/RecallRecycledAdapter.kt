@@ -1,14 +1,13 @@
 package com.example.project
 
-import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
-import androidx.activity.result.ActivityResultLauncher
 import androidx.recyclerview.widget.RecyclerView
 import com.example.project.databinding.ItemRecallLayoutBinding
 import java.lang.Exception
+import java.time.LocalDate
+import java.time.Period
 
 //TODO : Remplacer list avec autre chose
 class RecallRecycledAdapter (val model : FlowerViewModel, val recallContext : RecallActivity) : RecyclerView.Adapter<RecallRecycledAdapter.VH>(){
@@ -20,6 +19,20 @@ class RecallRecycledAdapter (val model : FlowerViewModel, val recallContext : Re
     }
 
     override fun onBindViewHolder(holder: VH, position: Int) {
+        val updateNextWatering = View.OnClickListener { view ->
+
+            var period = Period.of(0, 0, list.get(position).frequency.toInt())
+            var date = LocalDate.now()
+            var modifiedDate = date.plus(period)
+
+            list.get(position).nextWatering = modifiedDate.toString()
+            model.updateFlower(list.get(position))
+
+            model.loadNextWateringFlower(LocalDate.now().toString())
+            this.notifyDataSetChanged()
+
+        }
+        holder.binding.cardViewRecall.setOnClickListener(updateNextWatering)
         try {
             holder.binding.flowerPicture.setImageBitmap(PhotoManager.loadPhoto(list.get(position).picture, recallContext))
         }catch(e : Exception){
