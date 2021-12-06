@@ -25,6 +25,19 @@ class ResearchActivity : AppCompatActivity() {
         }
     }
 
+    //research edit text
+    val textWatcher = object : TextWatcher {
+        override fun afterTextChanged(editable : Editable) {
+            model.loadPartialFlower(editable.toString())
+        }
+        override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+
+        }
+        override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+
+        }
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityResearchBinding.inflate( layoutInflater )
@@ -44,25 +57,23 @@ class ResearchActivity : AppCompatActivity() {
         binding.recyclerView.layoutManager = LinearLayoutManager(this)
         binding.recyclerView.adapter = adapter
 
-        //research edit text
-        val textWatcher = object : TextWatcher {
-            override fun afterTextChanged(editable : Editable) {
-                model.loadPartialFlower(editable.toString())
-            }
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
-
-            }
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-
-            }
-        }
-        binding.researchFlower.addTextChangedListener(textWatcher)
-
+        binding.rechercheFlower.addTextChangedListener(textWatcher)
 
         model.flowers.value?.let {adapter.maj_flower(it)}
         model.flowers.observe(this) {
             adapter.maj_flower(it)
         }
 
+        reload (savedInstanceState)
+    }
+
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.putString("research_text", binding.rechercheFlower.text.toString())
+    }
+
+    fun reload (savedInstanceState: Bundle?){
+        binding.rechercheFlower.setText(savedInstanceState?.getString("research_text") ?: "")
     }
 }

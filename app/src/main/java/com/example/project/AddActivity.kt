@@ -75,5 +75,39 @@ class AddActivity : AppCompatActivity() {
                 model.insertFlower(flower)
             }
         }
+
+        reload (savedInstanceState)
     }
+
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.putString("name", binding.edName.text.toString())
+        outState.putString("latinName", binding.edLatinName.text.toString())
+        outState.putString("frequency", binding.edFrequency.text.toString())
+        outState.putString("nutrimentFrequency", binding.edNutrimentFrequency.text.toString())
+        if (this::imageBitmap.isInitialized) {
+            PhotoManager.savePhoto ("save", imageBitmap,this)
+            outState.putBoolean("photo_saved", true)
+        }else{
+            outState.putBoolean("photo_saved", false)
+        }
+    }
+
+    fun reload (savedInstanceState: Bundle?){
+        binding.edName.setText(savedInstanceState?.getString("name") ?: "")
+        binding.edLatinName.setText(savedInstanceState?.getString("latinName") ?: "")
+        binding.edFrequency.setText(savedInstanceState?.getString("frequency") ?: "")
+        binding.edNutrimentFrequency.setText(savedInstanceState?.getString("nutrimentFrequency") ?: "")
+
+        val photo_saved = savedInstanceState?.getBoolean("photo_saved") ?: false
+        if (photo_saved) {
+            Toast.makeText(this, "picture", Toast.LENGTH_SHORT).show()
+            imageBitmap = PhotoManager.loadPhoto("save.jpg", this)
+            binding.flowerPicture.setImageBitmap(imageBitmap)
+        }else{
+            Toast.makeText(this, "Nopicture", Toast.LENGTH_SHORT).show()
+        }
+    }
+
 }
