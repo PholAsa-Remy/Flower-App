@@ -9,7 +9,7 @@
     android:clickable="true"
     android:focusable="true"
     android:backgroundTint="@color/white"
-    android:layout_margin="15dp"
+    android:layout_margin="10dp"
     app:cardCornerRadius="12dp"
     app:cardElevation="10dp">
 
