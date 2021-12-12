@@ -43,6 +43,12 @@ class ResearchActivity : AppCompatActivity() {
         binding = ActivityResearchBinding.inflate( layoutInflater )
         setContentView( binding.root)
 
+        setSupportActionBar( binding.toolbar )
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.setDisplayShowHomeEnabled(true);
+
+
+
         binding.buttonAdd.setOnClickListener(){
             val goToAdd : Intent = Intent(this@ResearchActivity, AddActivity :: class.java)
             launcher.launch(goToAdd)
