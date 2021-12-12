@@ -4,26 +4,64 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/background"
+    android:scaleType="centerCrop"
     tools:context=".MainActivity">
 
-    <LinearLayout
+    <View
+        android:id="@+id/view"
+        android:layout_width="wrap_content"
+        android:layout_height="275dp"
+        android:background="@drawable/light_green_box"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/recallbutton"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="horizontal">
+        android:layout_height="50dp"
+        android:layout_marginHorizontal="20dp"
+        android:layout_marginBottom="10dp"
+        android:layout_weight="1"
+        android:background="@drawable/button_style"
+        android:elevation="10dp"
+        android:text="Recall"
+        android:textColor="@color/white"
+        app:backgroundTint="@color/button_color"
+        app:layout_constraintBottom_toTopOf="@+id/recherchebutton"
+        app:layout_constraintEnd_toEndOf="@+id/recherchebutton"
+        app:layout_constraintStart_toStartOf="@+id/recherchebutton" />
 
-        <Button
-            android:id="@+id/recherchebutton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Recherche" />
+    <Button
+        android:id="@+id/recherchebutton"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginHorizontal="20dp"
+        android:layout_marginBottom="30dp"
+        android:layout_weight="1"
+        android:background="@drawable/button_style"
+        android:elevation="10dp"
+        android:text="Recherche"
+        android:textColor="@color/white"
+        app:backgroundTint="@color/button_color"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
-        <Button
-            android:id="@+id/recallbutton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Recall" />
-    </LinearLayout>
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Welcome to\n Save Your Flowy"
+        android:textAlignment="center"
+        android:textColor="@color/white"
+        android:textSize="30dp"
+        app:layout_constraintBottom_toTopOf="@+id/recallbutton"
+        app:layout_constraintEnd_toEndOf="@+id/recallbutton"
+        app:layout_constraintStart_toStartOf="@+id/recallbutton"
+        app:layout_constraintTop_toTopOf="@+id/view"
+        app:layout_constraintVertical_bias="0.3" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
