@@ -42,6 +42,12 @@ class FlowerViewModel (application: Application) : AndroidViewModel(application)
         }.start()
     }
 
+    fun loadNextWateringFlower (date : String){
+        Thread {
+            flowers.postValue(dao.loadNextWateringFlower(date).toList())
+        }.start()
+    }
+
     fun deleteFlower (flower:Flower){
         Thread {
             dao.deleteFlower(flower)

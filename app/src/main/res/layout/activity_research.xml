@@ -19,7 +19,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
-        android:id="@+id/recherche_flower"
+        android:id="@+id/research_flower"
         android:layout_width="match_parent"
         android:layout_height="32dp"
         android:layout_marginHorizontal="16dp"
@@ -38,11 +38,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="12dp"
-        app:layout_constraintBottom_toBottomOf="@+id/recherche_flower"
-        app:layout_constraintEnd_toEndOf="@+id/recherche_flower"
-        app:layout_constraintTop_toTopOf="@+id/recherche_flower"
+        app:layout_constraintBottom_toBottomOf="@+id/research_flower"
+        app:layout_constraintEnd_toEndOf="@+id/research_flower"
+        app:layout_constraintTop_toTopOf="@+id/research_flower"
         app:srcCompat="@drawable/search" />
-
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"
@@ -52,7 +51,7 @@
         android:layout_weight="1"
         android:background="@drawable/dark_green_box"
         app:layout_constraintBottom_toTopOf="@+id/button_add"
-        app:layout_constraintTop_toBottomOf="@+id/recherche_flower"
+        app:layout_constraintTop_toBottomOf="@+id/research_flower"
         tools:layout_editor_absoluteX="0dp">
 
     </androidx.recyclerview.widget.RecyclerView>

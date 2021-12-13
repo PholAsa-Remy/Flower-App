@@ -63,7 +63,7 @@ class ResearchActivity : AppCompatActivity() {
         binding.recyclerView.layoutManager = LinearLayoutManager(this)
         binding.recyclerView.adapter = adapter
 
-        binding.rechercheFlower.addTextChangedListener(textWatcher)
+        binding.researchFlower.addTextChangedListener(textWatcher)
 
         model.flowers.value?.let {adapter.maj_flower(it)}
         model.flowers.observe(this) {
@@ -76,10 +76,10 @@ class ResearchActivity : AppCompatActivity() {
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
-        outState.putString("research_text", binding.rechercheFlower.text.toString())
+        outState.putString("research_text", binding.researchFlower.text.toString())
     }
 
     fun reload (savedInstanceState: Bundle?){
-        binding.rechercheFlower.setText(savedInstanceState?.getString("research_text") ?: "")
+        binding.researchFlower.setText(savedInstanceState?.getString("research_text") ?: "")
     }
 }

@@ -59,6 +59,7 @@ class AddActivity : AppCompatActivity() {
             val latinName = binding.edLatinName.text.toString()
             val frequency = binding.edFrequency.text.toString()
             val nutrimentFrequency = binding.edNutrimentFrequency.text.toString()
+            val nextWatering = SimpleDateFormat("yyyy-MM-dd").format(Date())
 
             if (name == "" || latinName == "" || frequency == "" || nutrimentFrequency == "" || nutrimentFrequency.toInt() <= 0){
                 Toast.makeText(this, "Some field are missing", Toast.LENGTH_SHORT).show()
@@ -73,6 +74,7 @@ class AddActivity : AppCompatActivity() {
                 }
 
                 flower = Flower(name, latinName, frequency, nutrimentFrequency.toInt(),photo )
+                flower.nextWatering = nextWatering
                 model.insertFlower(flower)
             }
         }
@@ -103,11 +105,8 @@ class AddActivity : AppCompatActivity() {
 
         val photo_saved = savedInstanceState?.getBoolean("photo_saved") ?: false
         if (photo_saved) {
-            Toast.makeText(this, "picture", Toast.LENGTH_SHORT).show()
             imageBitmap = PhotoManager.loadPhoto("save.jpg", this)
             binding.flowerPicture.setImageBitmap(imageBitmap)
-        }else{
-            Toast.makeText(this, "Nopicture", Toast.LENGTH_SHORT).show()
         }
     }
 
