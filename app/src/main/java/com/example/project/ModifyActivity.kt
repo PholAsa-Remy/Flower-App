@@ -63,12 +63,12 @@ class ModifyActivity : AppCompatActivity() {
         }
 
         binding.bModifyFlower.setOnClickListener(){
-            val name = binding.edName.text.toString()
             val latinName = binding.edLatinName.text.toString()
+            val name = if (binding.edName.text.toString() == "") latinName else binding.edName.text.toString()
             val frequency = binding.edFrequency.text.toString()
             val nutrimentFrequency = binding.edNutrimentFrequency.text.toString()
 
-            if (name == "" || latinName == "" || frequency == "" || nutrimentFrequency == "" || nutrimentFrequency.toInt() <= 0){
+            if (name == "" || frequency == "" || nutrimentFrequency == "" || nutrimentFrequency.toInt() <= 0){
                 Toast.makeText(this, "Some field are missing", Toast.LENGTH_SHORT).show()
             }else{
                 //val flower = model.flowers.value?.get(0)!!

@@ -55,13 +55,13 @@ class AddActivity : AppCompatActivity() {
         }
 
         binding.bAddFlower.setOnClickListener(){
-            val name = binding.edName.text.toString()
             val latinName = binding.edLatinName.text.toString()
+            val name = if (binding.edName.text.toString() == "") latinName else binding.edName.text.toString()
             val frequency = binding.edFrequency.text.toString()
             val nutrimentFrequency = binding.edNutrimentFrequency.text.toString()
             val nextWatering = SimpleDateFormat("yyyy-MM-dd").format(Date())
 
-            if (name == "" || latinName == "" || frequency == "" || nutrimentFrequency == "" || nutrimentFrequency.toInt() <= 0){
+            if (name == "" || frequency == "" || nutrimentFrequency == "" || nutrimentFrequency.toInt() <= 0){
                 Toast.makeText(this, "Some field are missing", Toast.LENGTH_SHORT).show()
             }else{
                 var photo : String
