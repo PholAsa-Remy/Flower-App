@@ -45,7 +45,7 @@ class ResearchActivity : AppCompatActivity() {
 
         setSupportActionBar( binding.toolbar )
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        supportActionBar?.setDisplayShowHomeEnabled(true);
+        //supportActionBar?.setDisplayShowHomeEnabled(true)
 
 
 
