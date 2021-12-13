@@ -11,7 +11,7 @@
         <entry key="app/src/main/res/drawable/light_green_box.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/style.xml" value="0.390625" />
         <entry key="app/src/main/res/drawable/white_box.xml" value="0.2755208333333333" />
-        <entry key="app/src/main/res/layout/activity_add.xml" value="0.5" />
+        <entry key="app/src/main/res/layout/activity_add.xml" value="0.25" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.25" />
         <entry key="app/src/main/res/layout/activity_main_2.xml" value="0.15520833333333334" />
         <entry key="app/src/main/res/layout/activity_modify.xml" value="0.19791666666666666" />
@@ -22,7 +22,7 @@
         <entry key="app/src/main/res/layout/item_layout_recall.xml" value="0.15217391304347827" />
         <entry key="app/src/main/res/layout/item_recall_layout.xml" value="0.17395833333333333" />
         <entry key="app/src/main/res/layout/item_recherche_layout.xml" value="0.19746376811594202" />
-        <entry key="app/src/main/res/layout/item_research_layout.xml" value="0.67" />
+        <entry key="app/src/main/res/layout/item_research_layout.xml" value="0.2757619738751814" />
       </map>
     </option>
   </component>

@@ -25,6 +25,8 @@
         android:layout_marginHorizontal="70dp"
         android:layout_marginTop="12dp"
         android:background="@color/white"
+        android:scaleType="centerCrop"
+        app:srcCompat="@drawable/camera"
         app:layout_constraintDimensionRatio="1:1"
         app:layout_constraintTop_toBottomOf="@+id/toolbar" />
 
@@ -101,6 +103,7 @@
         android:layout_height="wrap_content"
         android:background="@drawable/white_box"
         android:paddingHorizontal="10dp"
+        android:inputType="number"
         app:layout_constraintBottom_toBottomOf="@+id/nutriment_frequency"
         app:layout_constraintEnd_toEndOf="@+id/ed_latin_name"
         app:layout_constraintStart_toStartOf="@+id/ed_latin_name"
