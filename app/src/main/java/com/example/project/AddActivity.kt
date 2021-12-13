@@ -57,11 +57,15 @@ class AddActivity : AppCompatActivity() {
         binding.bAddFlower.setOnClickListener(){
             val latinName = binding.edLatinName.text.toString()
             val name = if (binding.edName.text.toString() == "") latinName else binding.edName.text.toString()
-            val frequency = binding.edFrequency.text.toString()
+            var frequency = ""
+            val spring = binding.edSpring.text.toString()
+            val summer = binding.edSummer.text.toString()
+            val autumn = binding.edAutumn.text.toString()
+            val winter = binding.edWinter.text.toString()
             val nutrimentFrequency = binding.edNutrimentFrequency.text.toString()
             val nextWatering = SimpleDateFormat("yyyy-MM-dd").format(Date())
 
-            if (name == "" || frequency == "" || nutrimentFrequency == "" || nutrimentFrequency.toInt() <= 0){
+            if (name == "" || spring == "" || summer == "" || autumn == "" || winter == "" || nutrimentFrequency == "" || nutrimentFrequency.toInt() <= 0){
                 Toast.makeText(this, "Some field are missing", Toast.LENGTH_SHORT).show()
             }else{
                 var photo : String
@@ -72,6 +76,9 @@ class AddActivity : AppCompatActivity() {
                 }else{
                     photo = "None"
                 }
+                frequency = "$winter,$spring,$summer,$autumn"
+
+                Toast.makeText(this, frequency, Toast.LENGTH_SHORT).show()
 
                 flower = Flower(name, latinName, frequency, nutrimentFrequency.toInt(),photo )
                 flower.nextWatering = nextWatering
@@ -87,7 +94,10 @@ class AddActivity : AppCompatActivity() {
         super.onSaveInstanceState(outState)
         outState.putString("name", binding.edName.text.toString())
         outState.putString("latinName", binding.edLatinName.text.toString())
-        outState.putString("frequency", binding.edFrequency.text.toString())
+        outState.putString("spring", binding.edSpring.text.toString())
+        outState.putString("summer", binding.edSummer.text.toString())
+        outState.putString("autumn", binding.edAutumn.text.toString())
+        outState.putString("winter", binding.edWinter.text.toString())
         outState.putString("nutrimentFrequency", binding.edNutrimentFrequency.text.toString())
         if (this::imageBitmap.isInitialized) {
             PhotoManager.savePhoto ("save", imageBitmap,this)
@@ -100,7 +110,10 @@ class AddActivity : AppCompatActivity() {
     fun reload (savedInstanceState: Bundle?){
         binding.edName.setText(savedInstanceState?.getString("name") ?: "")
         binding.edLatinName.setText(savedInstanceState?.getString("latinName") ?: "")
-        binding.edFrequency.setText(savedInstanceState?.getString("frequency") ?: "")
+        binding.edSpring.setText(savedInstanceState?.getString("spring") ?: "")
+        binding.edSummer.setText(savedInstanceState?.getString("summer") ?: "")
+        binding.edAutumn.setText(savedInstanceState?.getString("autumn") ?: "")
+        binding.edWinter.setText(savedInstanceState?.getString("winter") ?: "")
         binding.edNutrimentFrequency.setText(savedInstanceState?.getString("nutrimentFrequency") ?: "")
 
         val photo_saved = savedInstanceState?.getBoolean("photo_saved") ?: false
