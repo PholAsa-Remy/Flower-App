@@ -39,6 +39,8 @@ class RecallRecycledAdapter (val model : FlowerViewModel, val recallContext : Re
 
         }
         holder.binding.name.setText(list.get(position).name)
+        holder.binding.latinName.setText(list.get(position).latinName)
+        holder.binding.nextWatering.setText("Next Watering : ${list.get(position).nextWatering}")
     }
 
     override fun getItemCount(): Int = list.size

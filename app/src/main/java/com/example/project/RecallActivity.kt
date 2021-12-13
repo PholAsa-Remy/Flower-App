@@ -21,6 +21,9 @@ class RecallActivity : AppCompatActivity() {
         binding = ActivityRecallBinding.inflate( layoutInflater )
         setContentView( binding.root)
 
+        setSupportActionBar( binding.toolbar )
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+
         model = ViewModelProvider(this).get(FlowerViewModel::class.java)
 
         model.loadNextWateringFlower(SimpleDateFormat("yyyy-MM-dd").format(Date()))
