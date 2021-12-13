@@ -8,6 +8,7 @@ import com.example.project.databinding.ItemRecallLayoutBinding
 import java.lang.Exception
 import java.time.LocalDate
 import java.time.Period
+import java.util.*
 
 //TODO : Remplacer list avec autre chose
 class RecallRecycledAdapter (val model : FlowerViewModel, val recallContext : RecallActivity) : RecyclerView.Adapter<RecallRecycledAdapter.VH>(){
@@ -20,9 +21,12 @@ class RecallRecycledAdapter (val model : FlowerViewModel, val recallContext : Re
 
     override fun onBindViewHolder(holder: VH, position: Int) {
         val updateNextWatering = View.OnClickListener { view ->
-
-            var period = Period.of(0, 0, list.get(position).frequency.toInt())
+            var calendar : Calendar = Calendar.getInstance()
+            var month = calendar.get(Calendar.MONTH)
             var date = LocalDate.now()
+            var seasonNow : Int = month/4
+            var season = list.get(position).frequency.split(",")
+            var period = Period.of(0, 0, season[seasonNow].toInt())
             var modifiedDate = date.plus(period)
 
             list.get(position).nextWatering = modifiedDate.toString()
