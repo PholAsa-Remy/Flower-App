@@ -35,6 +35,9 @@ class ModifyActivity : AppCompatActivity() {
         binding = ActivityModifyBinding.inflate( layoutInflater )
         setContentView( binding.root)
 
+        setSupportActionBar( binding.toolbar )
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+
         val receivedIntent = intent
         //Get the flower with the primary key
         model = ViewModelProvider(this).get(FlowerViewModel::class.java)

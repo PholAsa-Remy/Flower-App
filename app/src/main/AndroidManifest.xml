@@ -8,22 +8,27 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.Project">
+        android:theme="@style/Theme.AppCompat.Light.NoActionBar">
         <activity
             android:name=".RecallActivity"
+            android:parentActivityName=".MainActivity"
             android:exported="true" />
         <activity
             android:name=".AddActivity"
+            android:parentActivityName=".ResearchActivity"
             android:exported="true" />
         <activity
             android:name=".ModifyActivity"
+            android:parentActivityName=".ResearchActivity"
             android:exported="true" />
         <activity
             android:name=".ResearchActivity"
+            android:parentActivityName=".MainActivity"
             android:exported="true" />
         <activity
             android:name=".MainActivity"
-            android:exported="true">
+            android:exported="true"
+            >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

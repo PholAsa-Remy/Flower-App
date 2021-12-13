@@ -37,6 +37,9 @@ class AddActivity : AppCompatActivity() {
         binding = ActivityAddBinding.inflate( layoutInflater )
         setContentView( binding.root)
 
+        setSupportActionBar( binding.toolbar )
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+
         model = ViewModelProvider(this).get(FlowerViewModel::class.java)
         model.insertInfo.observe(this){
             if (it == 1) {
