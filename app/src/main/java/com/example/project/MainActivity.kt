@@ -57,7 +57,7 @@ class MainActivity : AppCompatActivity() {
     //set the alarm
     private fun setAlarm (){
         calendar =  Calendar.getInstance()
-        calendar.set(Calendar.HOUR_OF_DAY, 21);
+        calendar.set(Calendar.HOUR_OF_DAY, 23);
         calendar.set(Calendar.MINUTE, 45);
         calendar.set(Calendar.SECOND, 0)
 
