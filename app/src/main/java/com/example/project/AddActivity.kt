@@ -78,8 +78,6 @@ class AddActivity : AppCompatActivity() {
                 }
                 frequency = "$winter,$spring,$summer,$autumn"
 
-                Toast.makeText(this, frequency, Toast.LENGTH_SHORT).show()
-
                 flower = Flower(name, latinName, frequency, nutrimentFrequency.toInt(),photo )
                 flower.nextWatering = nextWatering
                 model.insertFlower(flower)

@@ -24,7 +24,17 @@ class RecallRecycledAdapter (val model : FlowerViewModel, val recallContext : Re
             var calendar : Calendar = Calendar.getInstance()
             var month = calendar.get(Calendar.MONTH)
             var date = LocalDate.now()
-            var seasonNow : Int = month/4
+            var seasonNow : Int = -1
+            if (month > 0 && month < 13){
+                if (month >=1 && month <= 3)
+                    seasonNow = 0
+                else if (month >=4 && month <= 6)
+                    seasonNow = 1
+                else if (month >=7 && month <= 9)
+                    seasonNow = 2
+                else if (month >=10 && month <= 12)
+                    seasonNow = 3
+            }
             var season = list.get(position).frequency.split(",")
             var period = Period.of(0, 0, season[seasonNow].toInt())
             var modifiedDate = date.plus(period)
