@@ -5,6 +5,7 @@ import android.content.Intent
 import android.graphics.Bitmap
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
@@ -50,11 +51,10 @@ class ModifyActivity : AppCompatActivity() {
                 val season : List<String> = flower.frequency.split(",")
                 binding.edName.setText(flower.name)
                 binding.edLatinName.setText(flower.latinName)
-
-                binding.edSpring.setText(season[0])
-                binding.edSummer.setText(season[1])
-                binding.edAutumn.setText(season[2])
-                binding.edWinter.setText(season[3])
+                binding.edSpring.setText(season[1])
+                binding.edSummer.setText(season[2])
+                binding.edAutumn.setText(season[3])
+                binding.edWinter.setText(season[0])
 
                 binding.edNutrimentFrequency.setText(flower.nutrimentFrequency.toString())
                 if (flower.picture != "None"){
@@ -69,8 +69,8 @@ class ModifyActivity : AppCompatActivity() {
         }
 
         binding.bModifyFlower.setOnClickListener(){
-            val name = binding.edName.text.toString()
             val latinName = binding.edLatinName.text.toString()
+            val name = if (binding.edName.text.toString() == "") latinName else binding.edName.text.toString()
             val spring = binding.edSpring.text.toString()
             val summer = binding.edSummer.text.toString()
             val autumn = binding.edAutumn.text.toString()
@@ -83,7 +83,7 @@ class ModifyActivity : AppCompatActivity() {
                 //val flower = model.flowers.value?.get(0)!!
                 flower.name = name
                 flower.latinName = latinName
-                flower.frequency = "$spring,$summer,$autumn,$winter"
+                flower.frequency = "$winter,$spring,$summer,$autumn"
                 flower.nutrimentFrequency = nutrimentFrequency.toInt()
                 if (this::imageBitmap.isInitialized) {
                     val timeStamp: String = SimpleDateFormat("yyyyMMdd_HHmmss").format(Date())
@@ -132,10 +132,10 @@ class ModifyActivity : AppCompatActivity() {
         var season : List <String> = flower.frequency.split(",")
         binding.edName.setText(savedInstanceState?.getString("name") ?: flower.name)
         binding.edLatinName.setText(savedInstanceState?.getString("latinName") ?: flower.latinName)
-        binding.edSpring.setText(savedInstanceState?.getString("spring") ?: season[0])
-        binding.edSummer.setText(savedInstanceState?.getString("summer") ?: season[1])
-        binding.edAutumn.setText(savedInstanceState?.getString("autumn") ?: season[2])
-        binding.edWinter.setText(savedInstanceState?.getString("winter") ?: season[3])
+        binding.edSpring.setText(savedInstanceState?.getString("spring") ?: season[1])
+        binding.edSummer.setText(savedInstanceState?.getString("summer") ?: season[2])
+        binding.edAutumn.setText(savedInstanceState?.getString("autumn") ?: season[3])
+        binding.edWinter.setText(savedInstanceState?.getString("winter") ?: season[0])
         binding.edNutrimentFrequency.setText(savedInstanceState?.getString("nutrimentFrequency") ?: flower.nutrimentFrequency.toString())
 
         val photo_saved = savedInstanceState?.getBoolean("photo_saved") ?: false

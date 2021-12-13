@@ -55,8 +55,8 @@ class AddActivity : AppCompatActivity() {
         }
 
         binding.bAddFlower.setOnClickListener(){
-            val name = binding.edName.text.toString()
             val latinName = binding.edLatinName.text.toString()
+            val name = if (binding.edName.text.toString() == "") latinName else binding.edName.text.toString()
             var frequency = ""
             val spring = binding.edSpring.text.toString()
             val summer = binding.edSummer.text.toString()
@@ -76,7 +76,7 @@ class AddActivity : AppCompatActivity() {
                 }else{
                     photo = "None"
                 }
-                frequency = "$spring,$summer,$autumn,$winter"
+                frequency = "$winter,$spring,$summer,$autumn"
 
                 Toast.makeText(this, frequency, Toast.LENGTH_SHORT).show()
 
