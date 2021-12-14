@@ -1,5 +1,6 @@
 package com.example.project
 
+import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -52,6 +53,14 @@ class RecallRecycledAdapter (val model : FlowerViewModel, val recallContext : Re
         }catch(e : Exception){
 
         }
+
+        if (list.get(position).nextNutriment == 0) {
+            list.get(position).nextNutriment = list.get(position).nutrimentFrequency
+            holder.binding.nutriment.setText("need nutriment!!!")
+        }else{
+            list.get(position).nextNutriment--
+        }
+
         holder.binding.name.setText(list.get(position).name)
         holder.binding.latinName.setText(list.get(position).latinName)
         holder.binding.nextWatering.setText("Next Watering : ${list.get(position).nextWatering}")
