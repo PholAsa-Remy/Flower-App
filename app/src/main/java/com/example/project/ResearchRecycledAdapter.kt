@@ -12,6 +12,12 @@ import com.example.project.databinding.ItemResearchLayoutBinding
 import java.io.File
 import java.io.FileInputStream
 import java.lang.Exception
+import android.R
+
+import android.graphics.drawable.Drawable
+
+
+
 
 //TODO : Remplacer list avec autre chose
 class ResearchRecycledAdapter (val model : FlowerViewModel, val launcher: ActivityResultLauncher<Intent>, val researchContext : ResearchActivity) : RecyclerView.Adapter<ResearchRecycledAdapter.VH>(){
@@ -35,7 +41,8 @@ class ResearchRecycledAdapter (val model : FlowerViewModel, val launcher: Activi
         try {
             holder.binding.flowerPicture.setImageBitmap(PhotoManager.loadPhoto(list.get(position).picture, researchContext))
         }catch(e : Exception){
-
+            val flowerId = researchContext.resources.getIdentifier("flower", "drawable",researchContext.getPackageName());
+            holder.binding.flowerPicture.setImageResource(flowerId)
         }
         holder.binding.name.setText(list.get(position).name)
         holder.binding.latinName.setText(list.get(position).latinName)

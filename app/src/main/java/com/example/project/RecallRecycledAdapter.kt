@@ -54,7 +54,8 @@ class RecallRecycledAdapter (val model : FlowerViewModel, val recallContext : Re
         try {
             holder.binding.flowerPicture.setImageBitmap(PhotoManager.loadPhoto(list.get(position).picture, recallContext))
         }catch(e : Exception){
-
+            val flowerId = recallContext.resources.getIdentifier("flower", "drawable",recallContext.getPackageName());
+            holder.binding.flowerPicture.setImageResource(flowerId)
         }
 
         if (list.get(position).nextNutriment == 0) {
