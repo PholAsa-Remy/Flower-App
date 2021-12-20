@@ -45,9 +45,6 @@ class ResearchActivity : AppCompatActivity() {
 
         setSupportActionBar( binding.toolbar )
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        //supportActionBar?.setDisplayShowHomeEnabled(true)
-
-
 
         binding.buttonAdd.setOnClickListener(){
             val goToAdd : Intent = Intent(this@ResearchActivity, AddActivity :: class.java)

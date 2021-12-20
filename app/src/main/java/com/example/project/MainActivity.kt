@@ -9,6 +9,7 @@ import android.content.Intent
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.lifecycle.ViewModelProvider
 import com.example.project.databinding.ActivityMainBinding
 import java.util.*
 
@@ -34,6 +35,7 @@ class MainActivity : AppCompatActivity() {
             startActivity(goToResearch)
         }
 
+        AlarmRecall.model = ViewModelProvider(this).get(FlowerViewModel::class.java)
         createNotificationChannel()
         setAlarm()
     }
@@ -57,8 +59,8 @@ class MainActivity : AppCompatActivity() {
     //set the alarm
     private fun setAlarm (){
         calendar =  Calendar.getInstance()
-        calendar.set(Calendar.HOUR_OF_DAY, 23);
-        calendar.set(Calendar.MINUTE, 45);
+        calendar.set(Calendar.HOUR_OF_DAY, 21);
+        calendar.set(Calendar.MINUTE, 44);
         calendar.set(Calendar.SECOND, 0)
 
         alarmManager = getSystemService(ALARM_SERVICE) as AlarmManager
