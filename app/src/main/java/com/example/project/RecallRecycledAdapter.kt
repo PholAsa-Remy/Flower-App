@@ -4,6 +4,8 @@ import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
 import com.example.project.databinding.ItemRecallLayoutBinding
 import java.lang.Exception
@@ -41,11 +43,12 @@ class RecallRecycledAdapter (val model : FlowerViewModel, val recallContext : Re
             var modifiedDate = date.plus(period)
 
             list.get(position).nextWatering = modifiedDate.toString()
-            model.updateFlower(list.get(position))
-
-            model.loadNextWateringFlower(LocalDate.now().toString())
-            this.notifyDataSetChanged()
-
+            val t = Thread {
+                model.dao.updateFlower(list.get(position))
+                model.flowers.postValue(model.dao.loadNextWateringFlower(LocalDate.now().toString()).toList())
+            }
+            t.start()
+            t.join()
         }
         holder.binding.cardViewRecall.setOnClickListener(updateNextWatering)
         try {
