@@ -6,8 +6,14 @@ import android.content.Context
 import android.content.Intent
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
+import androidx.lifecycle.ViewModelProvider
+import java.text.SimpleDateFormat
+import java.util.*
 
 class AlarmRecall : BroadcastReceiver() {
+    companion object{
+        lateinit var model: FlowerViewModel
+    }
 
     //execute the function when the alarm is triggered
     override fun onReceive(context: Context?, intent: Intent?) {
@@ -17,19 +23,30 @@ class AlarmRecall : BroadcastReceiver() {
         }
         val pendingIntent: PendingIntent = PendingIntent.getActivity(context, 0, intent, 0)
 
-        val builder = NotificationCompat.Builder(context!!, "alarmRecall")
-            .setSmallIcon(R.drawable.ic_launcher_background)
-            .setContentTitle("My notification")
-            .setContentText("Hello World!")
-            .setPriority(NotificationCompat.PRIORITY_DEFAULT)
-            // Set the intent that will fire when the user taps the notification
-            .setContentIntent(pendingIntent)
-            .setAutoCancel(true)
+        val flowerDb = FlowerBD.getDatabase(context!!)
+        val date = SimpleDateFormat("yyyy-MM-dd").format(Date())
+        var list : List<Flower> = listOf()
+        val t = Thread {
+            list = flowerDb.daoFlower().loadNextWateringFlower(date).toList()
+        }
+        t.start()
+        t.join()
+        val nbFlower = list.size
 
-        val notification = NotificationManagerCompat.from(context)
-        notification.notify(1, builder.build())
+        if (nbFlower > 0) {
+            val builder = NotificationCompat.Builder(context!!, "alarmRecall")
+                .setSmallIcon(R.drawable.ic_launcher_background)
+                .setContentTitle("Save your flower !!!")
+                .setContentText("You have to $nbFlower water today !")
+                .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+                // Set the intent that will fire when the user taps the notification
+                .setContentIntent(pendingIntent)
+                .setAutoCancel(true)
+
+            val notification = NotificationManagerCompat.from(context)
+            notification.notify(1, builder.build())
+
+        }
     }
-
-
 
 }

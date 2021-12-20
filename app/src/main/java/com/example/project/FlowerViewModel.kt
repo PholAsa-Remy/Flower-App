@@ -3,6 +3,8 @@ package com.example.project
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
+import java.text.SimpleDateFormat
+import java.util.*
 
 /* This class is used for every call to the database */
 class FlowerViewModel (application: Application) : AndroidViewModel(application) {
