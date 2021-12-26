@@ -3,14 +3,12 @@ package com.example.project
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
-import java.text.SimpleDateFormat
-import java.util.*
 
 /* This class is used for every call to the database */
 class FlowerViewModel (application: Application) : AndroidViewModel(application) {
     val dao = FlowerBD.getDatabase(application).daoFlower()
     var flowers = MutableLiveData<List<Flower>>()
-    val insertInfo = MutableLiveData<Int>(-1)
+    val insertInfo = MutableLiveData(-1)
 
     fun loadAllFlower (){
         Thread {
