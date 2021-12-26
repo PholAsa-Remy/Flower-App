@@ -30,9 +30,9 @@ class RecallActivity : AppCompatActivity() {
         binding.recycler.layoutManager = LinearLayoutManager(this)
         binding.recycler.adapter = adapter
 
-        model.flowers.value?.let {adapter.maj_flower(it)}
+        model.flowers.value?.let {adapter.majFlower(it)}
         model.flowers.observe(this) {
-            adapter.maj_flower(it)
+            adapter.majFlower(it)
         }
     }
 }
