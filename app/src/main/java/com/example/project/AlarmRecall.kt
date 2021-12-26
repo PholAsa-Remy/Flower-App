@@ -1,12 +1,12 @@
 package com.example.project
 
+import android.annotation.SuppressLint
 import android.app.PendingIntent
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
-import androidx.lifecycle.ViewModelProvider
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -16,15 +16,16 @@ class AlarmRecall : BroadcastReceiver() {
     }
 
     //execute the function when the alarm is triggered
+    @SuppressLint("UnspecifiedImmutableFlag")
     override fun onReceive(context: Context?, intent: Intent?) {
         // Create an explicit intent for an Activity in your app
-        val intent = Intent(context, RecallActivity::class.java).apply {
+        val newIntent = Intent(context, RecallActivity::class.java).apply {
             flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
         }
-        val pendingIntent: PendingIntent = PendingIntent.getActivity(context, 0, intent, 0)
+        val pendingIntent: PendingIntent = PendingIntent.getActivity(context, 0, newIntent, 0)
 
         val flowerDb = FlowerBD.getDatabase(context!!)
-        val date = SimpleDateFormat("yyyy-MM-dd").format(Date())
+        val date = SimpleDateFormat("yyyy-MM-dd", Locale.FRANCE).format(Date())
         var list : List<Flower> = listOf()
         val t = Thread {
             list = flowerDb.daoFlower().loadNextWateringFlower(date).toList()
@@ -34,7 +35,7 @@ class AlarmRecall : BroadcastReceiver() {
         val nbFlower = list.size
 
         if (nbFlower > 0) {
-            val builder = NotificationCompat.Builder(context!!, "alarmRecall")
+            val builder = NotificationCompat.Builder(context, "alarmRecall")
                 .setSmallIcon(R.drawable.ic_launcher_background)
                 .setContentTitle("Save your flower !!!")
                 .setContentText("You have to $nbFlower water today !")

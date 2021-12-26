@@ -5,25 +5,23 @@ import android.content.Intent
 import android.graphics.Bitmap
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.provider.MediaStore
 import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.lifecycle.ViewModelProvider
 import com.example.project.databinding.ActivityAddBinding
-import java.io.*
 import java.text.SimpleDateFormat
 import java.util.*
 
 
 class AddActivity : AppCompatActivity() {
 
-    lateinit var binding : ActivityAddBinding
-    lateinit var flower : Flower
-    lateinit var model : FlowerViewModel
-    lateinit var imageBitmap : Bitmap
+    private lateinit var binding : ActivityAddBinding
+    private lateinit var flower : Flower
+    private lateinit var model : FlowerViewModel
+    private lateinit var imageBitmap : Bitmap
 
-    val launcher: ActivityResultLauncher<Intent> = registerForActivityResult (
+    private val launcher: ActivityResultLauncher<Intent> = registerForActivityResult (
         ActivityResultContracts.StartActivityForResult())
     { //listener
         if (it.resultCode == Activity.RESULT_OK){
@@ -44,33 +42,34 @@ class AddActivity : AppCompatActivity() {
         model.insertInfo.observe(this){
             if (it == 1) {
                 Toast.makeText(this, "Add new flower", Toast.LENGTH_SHORT).show()
-                var goToResearch : Intent = Intent (this, ResearchActivity:: class.java)
+                val goToResearch = Intent (this, ResearchActivity:: class.java)
                 setResult(RESULT_OK,goToResearch)
                 finish()
             }
         }
 
-        binding.flowerPicture.setOnClickListener(){
+        binding.flowerPicture.setOnClickListener{
             PhotoManager.takePhoto(launcher)
         }
 
-        binding.bAddFlower.setOnClickListener(){
+        binding.bAddFlower.setOnClickListener{
             val latinName = binding.edLatinName.text.toString()
             val name = if (binding.edName.text.toString() == "") latinName else binding.edName.text.toString()
-            var frequency = ""
+            val frequency : String
             val spring = binding.edSpring.text.toString()
             val summer = binding.edSummer.text.toString()
             val autumn = binding.edAutumn.text.toString()
             val winter = binding.edWinter.text.toString()
             val nutrimentFrequency = binding.edNutrimentFrequency.text.toString()
-            val nextWatering = SimpleDateFormat("yyyy-MM-dd").format(Date())
+            val nextWatering = SimpleDateFormat("yyyy-MM-dd", Locale.FRANCE).format(Date())
 
             if (name == "" || spring == "" || summer == "" || autumn == "" || winter == "" || nutrimentFrequency == "" || nutrimentFrequency.toInt() <= 0){
                 Toast.makeText(this, "Some field are missing", Toast.LENGTH_SHORT).show()
             }else{
-                var photo : String
+                val photo : String
+                val timeStamp: String
                 if (this::imageBitmap.isInitialized) {
-                    val timeStamp: String = SimpleDateFormat("yyyyMMdd_HHmmss").format(Date())
+                    timeStamp = SimpleDateFormat("yyyyMMdd_HHmmss", Locale.FRANCE).format(Date())
                     PhotoManager.savePhoto (timeStamp, imageBitmap,this)
                     photo = "$timeStamp.jpg"
                 }else{
@@ -105,7 +104,7 @@ class AddActivity : AppCompatActivity() {
         }
     }
 
-    fun reload (savedInstanceState: Bundle?){
+    private fun reload (savedInstanceState: Bundle?){
         binding.edName.setText(savedInstanceState?.getString("name") ?: "")
         binding.edLatinName.setText(savedInstanceState?.getString("latinName") ?: "")
         binding.edSpring.setText(savedInstanceState?.getString("spring") ?: "")
@@ -114,8 +113,8 @@ class AddActivity : AppCompatActivity() {
         binding.edWinter.setText(savedInstanceState?.getString("winter") ?: "")
         binding.edNutrimentFrequency.setText(savedInstanceState?.getString("nutrimentFrequency") ?: "")
 
-        val photo_saved = savedInstanceState?.getBoolean("photo_saved") ?: false
-        if (photo_saved) {
+        val photoSaved = savedInstanceState?.getBoolean("photo_saved") ?: false
+        if (photoSaved) {
             imageBitmap = PhotoManager.loadPhoto("save.jpg", this)
             binding.flowerPicture.setImageBitmap(imageBitmap)
         }
