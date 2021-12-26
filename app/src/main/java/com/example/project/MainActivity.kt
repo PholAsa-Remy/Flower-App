@@ -59,8 +59,8 @@ class MainActivity : AppCompatActivity() {
     //set the alarm
     private fun setAlarm (){
         calendar =  Calendar.getInstance()
-        calendar.set(Calendar.HOUR_OF_DAY, 21);
-        calendar.set(Calendar.MINUTE, 44);
+        calendar.set(Calendar.HOUR_OF_DAY, 15);
+        calendar.set(Calendar.MINUTE, 40);
         calendar.set(Calendar.SECOND, 0)
 
         alarmManager = getSystemService(ALARM_SERVICE) as AlarmManager
@@ -68,7 +68,7 @@ class MainActivity : AppCompatActivity() {
         pendingIntent =PendingIntent.getBroadcast(this, 0, intent, 0)
         alarmManager.setRepeating(
             AlarmManager.RTC_WAKEUP, calendar.timeInMillis,
-            AlarmManager.INTERVAL_DAY, pendingIntent
+            AlarmManager.INTERVAL_FIFTEEN_MINUTES, pendingIntent
         )
     }
 }
