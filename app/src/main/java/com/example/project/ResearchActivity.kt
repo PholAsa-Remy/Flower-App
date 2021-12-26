@@ -54,7 +54,7 @@ class ResearchActivity : AppCompatActivity() {
         model = ViewModelProvider(this).get(FlowerViewModel::class.java)
         model.loadAllFlower()
 
-        val adapter = ResearchRecycledAdapter(model,launcher , this@ResearchActivity)
+        val adapter = ResearchRecycledAdapter(launcher , this@ResearchActivity)
 
         binding.recyclerView.hasFixedSize()
         binding.recyclerView.layoutManager = LinearLayoutManager(this)
@@ -62,9 +62,9 @@ class ResearchActivity : AppCompatActivity() {
 
         binding.researchFlower.addTextChangedListener(textWatcher)
 
-        model.flowers.value?.let {adapter.maj_flower(it)}
+        model.flowers.value?.let {adapter.majFlower(it)}
         model.flowers.observe(this) {
-            adapter.maj_flower(it)
+            adapter.majFlower(it)
         }
 
         reload (savedInstanceState)
