@@ -37,8 +37,11 @@ class MainActivity : AppCompatActivity() {
         }
 
         AlarmRecall.model = ViewModelProvider(this).get(FlowerViewModel::class.java)
-        createNotificationChannel()
-        setAlarm()
+
+        if (savedInstanceState == null){
+            createNotificationChannel()
+            setAlarm()
+        }
     }
 
     private fun createNotificationChannel() {
@@ -62,7 +65,7 @@ class MainActivity : AppCompatActivity() {
     @SuppressLint("UnspecifiedImmutableFlag")
     private fun setAlarm (){
         calendar =  Calendar.getInstance()
-        calendar.set(Calendar.HOUR_OF_DAY, 15)
+        calendar.set(Calendar.HOUR_OF_DAY, 23)
         calendar.set(Calendar.MINUTE, 40)
         calendar.set(Calendar.SECOND, 0)
 
@@ -71,7 +74,7 @@ class MainActivity : AppCompatActivity() {
         pendingIntent =PendingIntent.getBroadcast(this, 0, intent, 0)
         alarmManager.setRepeating(
             AlarmManager.RTC_WAKEUP, calendar.timeInMillis,
-            AlarmManager.INTERVAL_FIFTEEN_MINUTES, pendingIntent
+            AlarmManager.INTERVAL_DAY, pendingIntent
         )
     }
 }
