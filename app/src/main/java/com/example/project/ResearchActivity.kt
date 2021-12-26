@@ -14,10 +14,10 @@ import com.example.project.databinding.ActivityResearchBinding
 
 class ResearchActivity : AppCompatActivity() {
 
-    lateinit var binding : ActivityResearchBinding
+    private lateinit var binding : ActivityResearchBinding
     lateinit var model : FlowerViewModel
 
-    val launcher: ActivityResultLauncher<Intent> = registerForActivityResult (
+    private val launcher: ActivityResultLauncher<Intent> = registerForActivityResult (
         ActivityResultContracts.StartActivityForResult())
     { //listener
         if (it.resultCode == Activity.RESULT_OK){
@@ -26,7 +26,7 @@ class ResearchActivity : AppCompatActivity() {
     }
 
     //research edit text
-    val textWatcher = object : TextWatcher {
+    private val textWatcher = object : TextWatcher {
         override fun afterTextChanged(editable : Editable) {
             model.loadPartialFlower(editable.toString())
         }
@@ -46,15 +46,15 @@ class ResearchActivity : AppCompatActivity() {
         setSupportActionBar( binding.toolbar )
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-        binding.buttonAdd.setOnClickListener(){
-            val goToAdd : Intent = Intent(this@ResearchActivity, AddActivity :: class.java)
+        binding.buttonAdd.setOnClickListener{
+            val goToAdd = Intent(this@ResearchActivity, AddActivity :: class.java)
             launcher.launch(goToAdd)
         }
 
         model = ViewModelProvider(this).get(FlowerViewModel::class.java)
         model.loadAllFlower()
 
-        var adapter = ResearchRecycledAdapter(model,launcher , this@ResearchActivity)
+        val adapter = ResearchRecycledAdapter(launcher , this@ResearchActivity)
 
         binding.recyclerView.hasFixedSize()
         binding.recyclerView.layoutManager = LinearLayoutManager(this)
@@ -62,9 +62,9 @@ class ResearchActivity : AppCompatActivity() {
 
         binding.researchFlower.addTextChangedListener(textWatcher)
 
-        model.flowers.value?.let {adapter.maj_flower(it)}
+        model.flowers.value?.let {adapter.majFlower(it)}
         model.flowers.observe(this) {
-            adapter.maj_flower(it)
+            adapter.majFlower(it)
         }
 
         reload (savedInstanceState)
@@ -76,7 +76,7 @@ class ResearchActivity : AppCompatActivity() {
         outState.putString("research_text", binding.researchFlower.text.toString())
     }
 
-    fun reload (savedInstanceState: Bundle?){
+    private fun reload (savedInstanceState: Bundle?){
         binding.researchFlower.setText(savedInstanceState?.getString("research_text") ?: "")
     }
 }

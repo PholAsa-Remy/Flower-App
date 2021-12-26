@@ -5,24 +5,22 @@ import android.content.Intent
 import android.graphics.Bitmap
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.lifecycle.ViewModelProvider
 import com.example.project.databinding.ActivityModifyBinding
-import java.lang.Exception
 import java.text.SimpleDateFormat
 import java.util.*
 
 class ModifyActivity : AppCompatActivity() {
 
-    lateinit var binding : ActivityModifyBinding
-    lateinit var model :FlowerViewModel
-    lateinit var flower : Flower
-    lateinit var imageBitmap : Bitmap
+    private lateinit var binding : ActivityModifyBinding
+    private lateinit var model :FlowerViewModel
+    private lateinit var flower : Flower
+    private lateinit var imageBitmap : Bitmap
 
-    val launcher: ActivityResultLauncher<Intent> = registerForActivityResult (
+    private val launcher: ActivityResultLauncher<Intent> = registerForActivityResult (
         ActivityResultContracts.StartActivityForResult())
     { //listener
         if (it.resultCode == Activity.RESULT_OK){
@@ -42,7 +40,7 @@ class ModifyActivity : AppCompatActivity() {
         val receivedIntent = intent
         //Get the flower with the primary key
         model = ViewModelProvider(this).get(FlowerViewModel::class.java)
-        model.loadFlower(receivedIntent.getIntExtra("id", 0)!!)
+        model.loadFlower(receivedIntent.getIntExtra("id", 0))
 
         //Fill the information
         model.flowers.observe(this) {
@@ -64,11 +62,11 @@ class ModifyActivity : AppCompatActivity() {
                 reload (savedInstanceState)
             }
         }
-        binding.flowerPicture.setOnClickListener(){
+        binding.flowerPicture.setOnClickListener{
             PhotoManager.takePhoto(launcher)
         }
 
-        binding.bModifyFlower.setOnClickListener(){
+        binding.bModifyFlower.setOnClickListener{
             val latinName = binding.edLatinName.text.toString()
             val name = if (binding.edName.text.toString() == "") latinName else binding.edName.text.toString()
             val spring = binding.edSpring.text.toString()
@@ -86,7 +84,7 @@ class ModifyActivity : AppCompatActivity() {
                 flower.frequency = "$winter,$spring,$summer,$autumn"
                 flower.nutrimentFrequency = nutrimentFrequency.toInt()
                 if (this::imageBitmap.isInitialized) {
-                    val timeStamp: String = SimpleDateFormat("yyyyMMdd_HHmmss").format(Date())
+                    val timeStamp: String = SimpleDateFormat("yyyyMMdd_HHmmss",Locale.FRANCE).format(Date())
                     PhotoManager.savePhoto (timeStamp, imageBitmap,this)
                     flower.picture = "$timeStamp.jpg"
                 }else{
@@ -94,16 +92,16 @@ class ModifyActivity : AppCompatActivity() {
                 }
                 model.updateFlower (flower)
 
-                var goToResearch : Intent = Intent (this, ResearchActivity:: class.java)
+                val goToResearch = Intent (this, ResearchActivity:: class.java)
                 setResult(RESULT_OK,goToResearch)
                 finish()
             }
         }
 
-        binding.bDeleteFlower.setOnClickListener(){
+        binding.bDeleteFlower.setOnClickListener{
             //model.deleteFlower(model.flowers.value?.get(0)!!)
             model.deleteFlower(flower)
-            var goToResearch : Intent = Intent (this, ResearchActivity:: class.java)
+            val goToResearch = Intent (this, ResearchActivity:: class.java)
             setResult(RESULT_OK,goToResearch)
             finish()
         }
@@ -128,8 +126,8 @@ class ModifyActivity : AppCompatActivity() {
         }
     }
 
-    fun reload (savedInstanceState: Bundle?){
-        var season : List <String> = flower.frequency.split(",")
+    private fun reload (savedInstanceState: Bundle?){
+        val season : List <String> = flower.frequency.split(",")
         binding.edName.setText(savedInstanceState?.getString("name") ?: flower.name)
         binding.edLatinName.setText(savedInstanceState?.getString("latinName") ?: flower.latinName)
         binding.edSpring.setText(savedInstanceState?.getString("spring") ?: season[1])
@@ -138,8 +136,8 @@ class ModifyActivity : AppCompatActivity() {
         binding.edWinter.setText(savedInstanceState?.getString("winter") ?: season[0])
         binding.edNutrimentFrequency.setText(savedInstanceState?.getString("nutrimentFrequency") ?: flower.nutrimentFrequency.toString())
 
-        val photo_saved = savedInstanceState?.getBoolean("photo_saved") ?: false
-        if (photo_saved) {
+        val photoSaved = savedInstanceState?.getBoolean("photo_saved") ?: false
+        if (photoSaved) {
             Toast.makeText(this, "picture", Toast.LENGTH_SHORT).show()
             imageBitmap = PhotoManager.loadPhoto("save.jpg", this)
             binding.flowerPicture.setImageBitmap(imageBitmap)

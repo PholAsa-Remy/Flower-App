@@ -1,17 +1,13 @@
 package com.example.project
 
-import android.app.Activity
 import android.graphics.Bitmap
-import androidx.appcompat.app.AppCompatActivity
 import java.io.IOException
-import android.app.Application
 import android.content.Context
 import android.content.Context.MODE_PRIVATE
 import android.content.Intent
 import android.graphics.BitmapFactory
 import android.provider.MediaStore
 import androidx.activity.result.ActivityResultLauncher
-import androidx.activity.result.contract.ActivityResultContracts
 import java.io.File
 import java.io.FileInputStream
 
@@ -33,10 +29,9 @@ class PhotoManager {
         }
 
         fun loadPhoto(filename: String, context: Context): Bitmap {
-            val fileDirectory = context.getFilesDir()
-            var f = File(fileDirectory, filename)
-            var b: Bitmap = BitmapFactory.decodeStream(FileInputStream(f))
-            return b
+            val fileDirectory = context.filesDir
+            val f = File(fileDirectory, filename)
+            return BitmapFactory.decodeStream(FileInputStream(f))
         }
 
         fun takePhoto (launcher : ActivityResultLauncher<Intent>){
