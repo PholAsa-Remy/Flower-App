@@ -43,6 +43,12 @@ class RecallRecycledAdapter (private val model : FlowerViewModel, private val re
         val updateNextWatering = View.OnClickListener {
             val modifiedDate = getModifiedDate (position)
 
+            if (list[position].nextNutriment == 0) {
+                list[position].nextNutriment = list[position].nutrimentFrequency
+            }else{
+                list[position].nextNutriment--
+            }
+
             list[position].nextWatering = modifiedDate.toString()
             val t = Thread {
                 model.dao.updateFlower(list[position])
@@ -60,10 +66,7 @@ class RecallRecycledAdapter (private val model : FlowerViewModel, private val re
         }
 
         if (list[position].nextNutriment == 0) {
-            list[position].nextNutriment = list[position].nutrimentFrequency
             holder.binding.nutriment.text = "need nutriment!!!"
-        }else{
-            list[position].nextNutriment--
         }
 
         holder.binding.name.text = list[position].name
