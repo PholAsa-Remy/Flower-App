@@ -25,6 +25,7 @@
             android:textAlignment="center"
             android:textColor="@color/red"
             android:textSize="12dp"
+            app:layout_constraintBottom_toTopOf="@+id/next_watering"
             app:layout_constraintEnd_toEndOf="@+id/name"
             app:layout_constraintStart_toStartOf="@+id/name"
             app:layout_constraintTop_toBottomOf="@+id/latin_name" />
@@ -63,9 +64,9 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:text="LatinName"
-            android:textSize="8dp"
             android:textAlignment="center"
             android:textColor="@color/card_name_text_color"
+            android:textSize="8dp"
             app:layout_constraintEnd_toEndOf="@+id/name"
             app:layout_constraintStart_toStartOf="@+id/name"
             app:layout_constraintTop_toBottomOf="@+id/name" />
@@ -76,9 +77,9 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="8dp"
             android:text="Next Watering"
-            android:textSize="8dp"
             android:textAlignment="center"
             android:textColor="@color/card_watering_text_color"
+            android:textSize="8dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="@+id/name"
             app:layout_constraintStart_toStartOf="@+id/name" />
