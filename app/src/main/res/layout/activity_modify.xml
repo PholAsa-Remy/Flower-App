@@ -105,6 +105,7 @@
         android:layout_height="wrap_content"
         android:background="@drawable/white_box"
         android:maxLines="1"
+        android:inputType="number"
         android:paddingHorizontal="10dp"
         app:layout_constraintBottom_toBottomOf="@+id/nutriment_frequency"
         app:layout_constraintEnd_toEndOf="@+id/ed_latin_name"
