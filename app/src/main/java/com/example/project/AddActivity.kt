@@ -63,7 +63,7 @@ class AddActivity : AppCompatActivity() {
             val nutrimentFrequency = binding.edNutrimentFrequency.text.toString()
             val nextWatering = SimpleDateFormat("yyyy-MM-dd", Locale.FRANCE).format(Date())
 
-            if (name == "" || spring == "" || summer == "" || autumn == "" || winter == "" || nutrimentFrequency == "" || nutrimentFrequency.toInt() <= 0){
+            if (name == "" || spring == "" || summer == "" || autumn == "" || winter == "" || nutrimentFrequency == "" || nutrimentFrequency.toInt() < 0){
                 Toast.makeText(this, "Some field are missing", Toast.LENGTH_SHORT).show()
             }else{
                 val photo : String

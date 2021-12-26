@@ -75,7 +75,7 @@ class ModifyActivity : AppCompatActivity() {
             val winter = binding.edWinter.text.toString()
             val nutrimentFrequency = binding.edNutrimentFrequency.text.toString()
 
-            if (name == "" || spring == "" || summer == "" || autumn == "" || winter == "" || nutrimentFrequency == "" || nutrimentFrequency.toInt() <= 0){
+            if (name == "" || spring == "" || summer == "" || autumn == "" || winter == "" || nutrimentFrequency == "" || nutrimentFrequency.toInt() < 0){
                 Toast.makeText(this, "Some field are missing", Toast.LENGTH_SHORT).show()
             }else{
                 //val flower = model.flowers.value?.get(0)!!
