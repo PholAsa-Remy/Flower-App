@@ -58,6 +58,7 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
         android:background="@drawable/white_box"
+        android:inputType="text"
         android:maxLines="1"
         android:paddingHorizontal="10dp"
         app:layout_constraintBottom_toBottomOf="@+id/name"
@@ -79,13 +80,12 @@
         android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:background="@drawable/white_box"
+        android:inputType="text"
         android:maxLines="1"
         android:paddingHorizontal="10dp"
         app:layout_constraintBottom_toBottomOf="@+id/latin_name"
-
         app:layout_constraintEnd_toEndOf="@+id/ed_name"
         app:layout_constraintHorizontal_bias="0.0"
-
         app:layout_constraintStart_toStartOf="@+id/ed_name"
         app:layout_constraintTop_toTopOf="@+id/latin_name" />
 
@@ -178,7 +178,6 @@
         app:layout_constraintStart_toEndOf="@+id/spring"
         app:layout_constraintTop_toTopOf="@+id/spring" />
 
-    <!-- The next edit is spring -->
     <EditText
         android:id="@+id/ed_spring"
         android:layout_width="50dp"

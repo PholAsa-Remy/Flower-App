@@ -17,10 +17,11 @@ import java.util.*
 class AddActivity : AppCompatActivity() {
 
     private lateinit var binding : ActivityAddBinding
-    private lateinit var flower : Flower
+    private lateinit var flower : Flower // Flower to be created
     private lateinit var model : FlowerViewModel
-    private lateinit var imageBitmap : Bitmap
+    private lateinit var imageBitmap : Bitmap // The picture
 
+    // The return for the photo manager
     private val launcher: ActivityResultLauncher<Intent> = registerForActivityResult (
         ActivityResultContracts.StartActivityForResult())
     { //listener
@@ -30,14 +31,17 @@ class AddActivity : AppCompatActivity() {
         }
     }
 
+    // Creation of the add activity
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityAddBinding.inflate( layoutInflater )
         setContentView( binding.root)
 
+        //Show the action bar
         setSupportActionBar( binding.toolbar )
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
+        // Return to research when adding a flower
         model = ViewModelProvider(this).get(FlowerViewModel::class.java)
         model.insertInfo.observe(this){
             if (it == 1) {
@@ -48,45 +52,54 @@ class AddActivity : AppCompatActivity() {
             }
         }
 
+        // Action for taking picture
         binding.flowerPicture.setOnClickListener{
             PhotoManager.takePhoto(launcher)
         }
 
+        // Action for adding flower
         binding.bAddFlower.setOnClickListener{
-            val latinName = binding.edLatinName.text.toString()
-            val name = if (binding.edName.text.toString() == "") latinName else binding.edName.text.toString()
-            val frequency : String
-            val spring = binding.edSpring.text.toString()
-            val summer = binding.edSummer.text.toString()
-            val autumn = binding.edAutumn.text.toString()
-            val winter = binding.edWinter.text.toString()
-            val nutrimentFrequency = binding.edNutrimentFrequency.text.toString()
-            val nextWatering = SimpleDateFormat("yyyy-MM-dd", Locale.FRANCE).format(Date())
-
-            if (name == "" || spring == "" || summer == "" || autumn == "" || winter == "" || nutrimentFrequency == "" || nutrimentFrequency.toInt() < 0){
-                Toast.makeText(this, "Some field are missing", Toast.LENGTH_SHORT).show()
-            }else{
-                val photo : String
-                val timeStamp: String
-                if (this::imageBitmap.isInitialized) {
-                    timeStamp = SimpleDateFormat("yyyyMMdd_HHmmss", Locale.FRANCE).format(Date())
-                    PhotoManager.savePhoto (timeStamp, imageBitmap,this)
-                    photo = "$timeStamp.jpg"
-                }else{
-                    photo = "None"
-                }
-                frequency = "$winter,$spring,$summer,$autumn"
-
-                flower = Flower(name, latinName, frequency, nutrimentFrequency.toInt(),photo )
-                flower.nextWatering = nextWatering
-                model.insertFlower(flower)
-            }
+            addButtonAction ()
         }
 
+        // Reload when the phone turn
         reload (savedInstanceState)
     }
 
+    // Add a flower
+    private fun addButtonAction (){
+        val latinName = binding.edLatinName.text.toString()
+        val name = if (binding.edName.text.toString() == "") latinName else binding.edName.text.toString()
+        val frequency : String
+        val spring = binding.edSpring.text.toString()
+        val summer = binding.edSummer.text.toString()
+        val autumn = binding.edAutumn.text.toString()
+        val winter = binding.edWinter.text.toString()
+        val nutrimentFrequency = binding.edNutrimentFrequency.text.toString()
+        val nextWatering = SimpleDateFormat("yyyy-MM-dd", Locale.FRANCE).format(Date())
 
+        if (name == "" || spring == "" || summer == "" || autumn == "" || winter == "" || nutrimentFrequency == "" || nutrimentFrequency.toInt() < 0){
+            Toast.makeText(this, "Some field are missing", Toast.LENGTH_SHORT).show()
+        }else {
+            val photo: String
+            val timeStamp: String
+            if (this::imageBitmap.isInitialized) {
+                timeStamp = SimpleDateFormat("yyyyMMdd_HHmmss", Locale.FRANCE).format(Date())
+                PhotoManager.savePhoto(timeStamp, imageBitmap, this)
+                photo = "$timeStamp.jpg"
+            } else {
+                photo = "None"
+            }
+            frequency = "$winter,$spring,$summer,$autumn"
+
+            flower = Flower(name, latinName, frequency, nutrimentFrequency.toInt(), photo)
+            flower.nextWatering = nextWatering
+            model.insertFlower(flower)
+
+        }
+    }
+
+    //Save the information when the phone turn
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
         outState.putString("name", binding.edName.text.toString())
@@ -104,6 +117,7 @@ class AddActivity : AppCompatActivity() {
         }
     }
 
+    //Charge the information when the phone turn
     private fun reload (savedInstanceState: Bundle?){
         binding.edName.setText(savedInstanceState?.getString("name") ?: "")
         binding.edLatinName.setText(savedInstanceState?.getString("latinName") ?: "")

@@ -20,6 +20,7 @@ class ModifyActivity : AppCompatActivity() {
     private lateinit var flower : Flower
     private lateinit var imageBitmap : Bitmap
 
+    // Return for taking picture
     private val launcher: ActivityResultLauncher<Intent> = registerForActivityResult (
         ActivityResultContracts.StartActivityForResult())
     { //listener
@@ -42,7 +43,7 @@ class ModifyActivity : AppCompatActivity() {
         model = ViewModelProvider(this).get(FlowerViewModel::class.java)
         model.loadFlower(receivedIntent.getIntExtra("id", 0))
 
-        //Fill the information
+        //Fill the information with the selected flower
         model.flowers.observe(this) {
             if (it.size == 1){
                 flower = model.flowers.value?.get(0)!!
@@ -62,44 +63,16 @@ class ModifyActivity : AppCompatActivity() {
                 reload (savedInstanceState)
             }
         }
+        // Take Picture
         binding.flowerPicture.setOnClickListener{
             PhotoManager.takePhoto(launcher)
         }
-
+        // Modify Flower
         binding.bModifyFlower.setOnClickListener{
-            val latinName = binding.edLatinName.text.toString()
-            val name = if (binding.edName.text.toString() == "") latinName else binding.edName.text.toString()
-            val spring = binding.edSpring.text.toString()
-            val summer = binding.edSummer.text.toString()
-            val autumn = binding.edAutumn.text.toString()
-            val winter = binding.edWinter.text.toString()
-            val nutrimentFrequency = binding.edNutrimentFrequency.text.toString()
-
-            if (name == "" || spring == "" || summer == "" || autumn == "" || winter == "" || nutrimentFrequency == "" || nutrimentFrequency.toInt() < 0){
-                Toast.makeText(this, "Some field are missing", Toast.LENGTH_SHORT).show()
-            }else{
-                //val flower = model.flowers.value?.get(0)!!
-                flower.name = name
-                flower.latinName = latinName
-                flower.frequency = "$winter,$spring,$summer,$autumn"
-                flower.nutrimentFrequency = nutrimentFrequency.toInt()
-                if (this::imageBitmap.isInitialized) {
-                    val timeStamp: String = SimpleDateFormat("yyyyMMdd_HHmmss",Locale.FRANCE).format(Date())
-                    PhotoManager.savePhoto (timeStamp, imageBitmap,this)
-                    flower.picture = "$timeStamp.jpg"
-                }else{
-                    flower.picture = "None"
-                }
-                model.updateFlower (flower)
-
-                val goToResearch = Intent (this, ResearchActivity:: class.java)
-                setResult(RESULT_OK,goToResearch)
-                finish()
-            }
+            modifyButtonAction ()
         }
-
+        //Delete Flower
         binding.bDeleteFlower.setOnClickListener{
-            //model.deleteFlower(model.flowers.value?.get(0)!!)
             model.deleteFlower(flower)
             val goToResearch = Intent (this, ResearchActivity:: class.java)
             setResult(RESULT_OK,goToResearch)
@@ -107,7 +80,37 @@ class ModifyActivity : AppCompatActivity() {
         }
     }
 
+    private fun modifyButtonAction (){
+        val latinName = binding.edLatinName.text.toString()
+        val name = if (binding.edName.text.toString() == "") latinName else binding.edName.text.toString()
+        val spring = binding.edSpring.text.toString()
+        val summer = binding.edSummer.text.toString()
+        val autumn = binding.edAutumn.text.toString()
+        val winter = binding.edWinter.text.toString()
+        val nutrimentFrequency = binding.edNutrimentFrequency.text.toString()
 
+        if (name == "" || spring == "" || summer == "" || autumn == "" || winter == "" || nutrimentFrequency == "" || nutrimentFrequency.toInt() < 0){
+            Toast.makeText(this, "Some field are missing", Toast.LENGTH_SHORT).show()
+        }else{
+            //val flower = model.flowers.value?.get(0)!!
+            flower.name = name
+            flower.latinName = latinName
+            flower.frequency = "$winter,$spring,$summer,$autumn"
+            flower.nutrimentFrequency = nutrimentFrequency.toInt()
+            if (this::imageBitmap.isInitialized) {
+                val timeStamp: String = SimpleDateFormat("yyyyMMdd_HHmmss",Locale.FRANCE).format(Date())
+                PhotoManager.savePhoto (timeStamp, imageBitmap,this)
+                flower.picture = "$timeStamp.jpg"
+            }else{
+                flower.picture = "None"
+            }
+            model.updateFlower (flower)
+
+            val goToResearch = Intent (this, ResearchActivity:: class.java)
+            setResult(RESULT_OK,goToResearch)
+            finish()
+        }
+    }
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
 

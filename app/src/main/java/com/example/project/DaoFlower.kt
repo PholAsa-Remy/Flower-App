@@ -14,6 +14,7 @@ interface DaoFlower {
     @Query("SELECT * FROM Flower WHERE id = :id")
     fun loadFlower(id : Int) : Array<Flower>
 
+    // Used for research bar
     @Query("SELECT * FROM Flower f WHERE f.name LIKE :name || '%'")
     fun loadPartialFlower(name : String) : Array<Flower>
 

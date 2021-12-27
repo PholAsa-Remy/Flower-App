@@ -17,6 +17,7 @@ import java.util.*
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding : ActivityMainBinding
+    // Set up the alarm with the calendar
     private lateinit var alarmManager: AlarmManager
     private lateinit var calendar: Calendar
     private lateinit var pendingIntent: PendingIntent
@@ -26,17 +27,15 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate( layoutInflater )
         setContentView( binding.root)
 
-        binding.recallbutton.setOnClickListener{
+        binding.recallButton.setOnClickListener{
             val goToRecall = Intent (this, RecallActivity:: class.java)
             startActivity(goToRecall)
         }
 
-        binding.recherchebutton.setOnClickListener{
+        binding.researchButton.setOnClickListener{
             val goToResearch = Intent (this, ResearchActivity:: class.java)
             startActivity(goToResearch)
         }
-
-        AlarmRecall.model = ViewModelProvider(this).get(FlowerViewModel::class.java)
 
         if (savedInstanceState == null){
             createNotificationChannel()
@@ -65,13 +64,13 @@ class MainActivity : AppCompatActivity() {
     @SuppressLint("UnspecifiedImmutableFlag")
     private fun setAlarm (){
         calendar =  Calendar.getInstance()
-        calendar.set(Calendar.HOUR_OF_DAY, 23)
-        calendar.set(Calendar.MINUTE, 40)
+        calendar.set(Calendar.HOUR_OF_DAY, 16)
+        calendar.set(Calendar.MINUTE, 39)
         calendar.set(Calendar.SECOND, 0)
 
         alarmManager = getSystemService(ALARM_SERVICE) as AlarmManager
         val intent = Intent (this, AlarmRecall :: class.java)
-        pendingIntent =PendingIntent.getBroadcast(this, 0, intent, 0)
+        pendingIntent =PendingIntent.getBroadcast(this, 0, intent, PendingIntent.FLAG_MUTABLE)
         alarmManager.setRepeating(
             AlarmManager.RTC_WAKEUP, calendar.timeInMillis,
             AlarmManager.INTERVAL_DAY, pendingIntent
