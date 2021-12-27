@@ -27,12 +27,12 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate( layoutInflater )
         setContentView( binding.root)
 
-        binding.recallbutton.setOnClickListener{
+        binding.recallButton.setOnClickListener{
             val goToRecall = Intent (this, RecallActivity:: class.java)
             startActivity(goToRecall)
         }
 
-        binding.recherchebutton.setOnClickListener{
+        binding.researchButton.setOnClickListener{
             val goToResearch = Intent (this, ResearchActivity:: class.java)
             startActivity(goToResearch)
         }
@@ -64,8 +64,8 @@ class MainActivity : AppCompatActivity() {
     @SuppressLint("UnspecifiedImmutableFlag")
     private fun setAlarm (){
         calendar =  Calendar.getInstance()
-        calendar.set(Calendar.HOUR_OF_DAY, 23)
-        calendar.set(Calendar.MINUTE, 40)
+        calendar.set(Calendar.HOUR_OF_DAY, 16)
+        calendar.set(Calendar.MINUTE, 39)
         calendar.set(Calendar.SECOND, 0)
 
         alarmManager = getSystemService(ALARM_SERVICE) as AlarmManager

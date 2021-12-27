@@ -20,7 +20,7 @@ class AlarmRecall : BroadcastReceiver() {
             flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
         }
         // Intent when click on notification
-        val pendingIntent: PendingIntent = PendingIntent.getActivity(context, 0, newIntent, 0)
+        val pendingIntent: PendingIntent = PendingIntent.getActivity(context, 0, newIntent, PendingIntent.FLAG_MUTABLE)
 
         // Search number of flower to water
         val nbFlower = getNumberFlower (context!!)
@@ -30,7 +30,7 @@ class AlarmRecall : BroadcastReceiver() {
             val builder = NotificationCompat.Builder(context, "alarmRecall")
                 .setSmallIcon(R.drawable.ic_launcher_background)
                 .setContentTitle("Save your flower !!!")
-                .setContentText("You have to $nbFlower water today !")
+                .setContentText("You have $nbFlower flower to water today !")
                 .setPriority(NotificationCompat.PRIORITY_DEFAULT)
                 // Set the intent that will fire when the user taps the notification
                 .setContentIntent(pendingIntent)
