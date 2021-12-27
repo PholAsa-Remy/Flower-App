@@ -5,6 +5,7 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 
+// The Database of the application
 @Database(entities = [Flower::class], version = 6)
 abstract class FlowerBD : RoomDatabase() {
     abstract fun daoFlower(): DaoFlower

@@ -6,7 +6,9 @@ import androidx.lifecycle.MutableLiveData
 
 /* This class is used for every call to the database */
 class FlowerViewModel (application: Application) : AndroidViewModel(application) {
+    // The database of all Flower
     val dao = FlowerBD.getDatabase(application).daoFlower()
+    //List of flower after loading
     var flowers = MutableLiveData<List<Flower>>()
     val insertInfo = MutableLiveData(-1)
 

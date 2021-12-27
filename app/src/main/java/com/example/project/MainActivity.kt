@@ -17,6 +17,7 @@ import java.util.*
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding : ActivityMainBinding
+    // Set up the alarm with the calendar
     private lateinit var alarmManager: AlarmManager
     private lateinit var calendar: Calendar
     private lateinit var pendingIntent: PendingIntent
@@ -35,8 +36,6 @@ class MainActivity : AppCompatActivity() {
             val goToResearch = Intent (this, ResearchActivity:: class.java)
             startActivity(goToResearch)
         }
-
-        AlarmRecall.model = ViewModelProvider(this).get(FlowerViewModel::class.java)
 
         if (savedInstanceState == null){
             createNotificationChannel()
@@ -71,7 +70,7 @@ class MainActivity : AppCompatActivity() {
 
         alarmManager = getSystemService(ALARM_SERVICE) as AlarmManager
         val intent = Intent (this, AlarmRecall :: class.java)
-        pendingIntent =PendingIntent.getBroadcast(this, 0, intent, 0)
+        pendingIntent =PendingIntent.getBroadcast(this, 0, intent, PendingIntent.FLAG_MUTABLE)
         alarmManager.setRepeating(
             AlarmManager.RTC_WAKEUP, calendar.timeInMillis,
             AlarmManager.INTERVAL_DAY, pendingIntent

@@ -12,13 +12,16 @@ import java.time.Period
 import java.util.*
 
 class RecallRecycledAdapter (private val model : FlowerViewModel, private val recallContext : RecallActivity) : RecyclerView.Adapter<RecallRecycledAdapter.VH>(){
+    // List of flower shown by the recycled view
     private var list : List<Flower> = mutableListOf()
 
+    // Create View Holder
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): VH {
         val binding = ItemRecallLayoutBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return VH(binding)
     }
 
+    // Get the new watering date for the selected flower
     @SuppressLint("NewApi")
     private fun getModifiedDate (position : Int) : LocalDate {
         val calendar : Calendar = Calendar.getInstance()
@@ -38,17 +41,20 @@ class RecallRecycledAdapter (private val model : FlowerViewModel, private val re
         return date.plus(period)
     }
 
+    // For each card/Flower
     @SuppressLint("NewApi")
     override fun onBindViewHolder(holder: VH, position: Int) {
+        // When flower is clicked
         val updateNextWatering = View.OnClickListener {
-            val modifiedDate = getModifiedDate (position)
-
+            // Update Nutriment
             if (list[position].nextNutriment == 0) {
                 list[position].nextNutriment = list[position].nutrimentFrequency
             }else{
                 list[position].nextNutriment--
             }
 
+            // Modify the watering date
+            val modifiedDate = getModifiedDate (position)
             list[position].nextWatering = modifiedDate.toString()
             val t = Thread {
                 model.dao.updateFlower(list[position])
@@ -58,17 +64,19 @@ class RecallRecycledAdapter (private val model : FlowerViewModel, private val re
             t.join()
         }
         holder.binding.cardViewRecall.setOnClickListener(updateNextWatering)
+
+        // Flower Picture
         try {
             holder.binding.flowerPicture.setImageBitmap(PhotoManager.loadPhoto(list[position].picture, recallContext))
         }catch(e : Exception){
             val flowerId = recallContext.resources.getIdentifier("flower", "drawable",recallContext.packageName)
             holder.binding.flowerPicture.setImageResource(flowerId)
         }
-
+        // Flower Nutriment
         if (list[position].nextNutriment == 0) {
             holder.binding.nutriment.text = "need nutriment!!!"
         }
-
+        // Flower Information
         holder.binding.name.text = list[position].name
         holder.binding.latinName.text = list[position].latinName
         holder.binding.nextWatering.text = "Next Watering : ${list[position].nextWatering}"
@@ -76,6 +84,7 @@ class RecallRecycledAdapter (private val model : FlowerViewModel, private val re
 
     override fun getItemCount(): Int = list.size
 
+    // Update list
     fun majFlower (flower : List<Flower>){
         list = flower
         this.notifyDataSetChanged()

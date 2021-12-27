@@ -5,7 +5,7 @@ import androidx.room.PrimaryKey
 
 
 
-
+// Represent the object Flower
 @Entity
 data class Flower(
     var name : String,
