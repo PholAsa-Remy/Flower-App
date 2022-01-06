@@ -28,12 +28,12 @@ class RecallRecycledAdapter (private val model : FlowerViewModel, private val re
         val month = calendar.get(Calendar.MONTH)
         val date = LocalDate.now()
         var seasonNow : Int = -1
-        if (month in 1..12){
+        if (month in 0..11){
             when (month) {
-                in 1..3 -> seasonNow = 0
-                in 4..6 -> seasonNow = 1
-                in 7..9 -> seasonNow = 2
-                in 10..12 -> seasonNow = 3
+                in 0..2 -> seasonNow = 0
+                in 3..5 -> seasonNow = 1
+                in 6..8 -> seasonNow = 2
+                in 9..11 -> seasonNow = 3
             }
         }
         val season = list[position].frequency.split(",")
